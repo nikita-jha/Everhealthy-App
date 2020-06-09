@@ -1,29 +1,119 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MapView from 'react-native-maps';
+import Marker from 'react-native-maps'
 import Restaurant from '../components/Restaurant';
-import { StyleSheet, Text, View, Dimensions, FlatList, Image, TextInput } from 'react-native';
-
+import mapsapi from '../api/mapsapi';
+import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from 'react-native';
 export default function App() {
-  const text = [
-    {name:"Restaurant one" ,url:"https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png", review:"5", cost:"3", key:'1'},
-    {name:"Restaurant two" ,url:"https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png", review:"3", cost:"1", key:'2'},
-    {name:"Restaurant three" ,url:"https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png", review:"4", cost:"2", key:'3'},
-    {name:"Restaurant four" ,url:"https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png", review:"3", cost:"1", key:'4'},
-    {name:"Restaurant five" ,url:"https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png", review:"5", cost:"3", key:'5'},
-    {name:"Restaurant six" ,url:"https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png", review:"2", cost:"1", key:'6'},
-  ];
-  const url = "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"
+  const[longitude, setLongitude] = useState(null);
+  const[latitude, setLatitude] = useState(null);
+  const[results, setResults] = useState([]);
+  const[search, setSearch] = useState('');
+  var markers = []
+  const findCoordinates = async() => {
+    await navigator.geolocation.getCurrentPosition(
+      position => {
+        const currlongitude = JSON.stringify(position.coords.longitude);
+        const currlatitude = JSON.stringify(position.coords.latitude);
+        setLongitude(currlongitude);
+        setLatitude(currlatitude);
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+    navigator.geolocation.watchPosition(
+      position => {
+        const currlongitude = JSON.stringify(position.coords.longitude);
+        const currlatitude = JSON.stringify(position.coords.latitude);
+        if(currlongitude!=longitude||currlatitude!=latitude){
+          setLongitude(currlongitude);
+          setLatitude(currlatitude);
+        }
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 900000 }
+    );
+  };
+  findCoordinates();
+  const searchApi = async() => {
+    var newsearch = "";
+    //console.log(newsearch);
+    try{
+      if(search==''){
+        const response = await mapsapi.get('/search', {
+          params: {
+            limit: 15,
+            categories: 'restaurant, food',
+            longitude: longitude,
+            latitude: latitude,
+            radius: 24140,
+          }
+        });
+        setResults(response.data.businesses);
+      }
+      else {
+        const response = await mapsapi.get('/search', {
+          params: {
+            limit: 15,
+            categories: 'restaurant, food',
+            longitude: longitude,
+            latitude: latitude,
+            radius: 24140,
+            term: {search}
+          }
+        });
+        setResults(response.data.businesses);
+      }
+    }
+    catch(err){
+      console.log('error');
+    }
+  }
+  useEffect(() => {
+    searchApi();
+  }, [longitude, latitude, search]);
+  var i = 0;
+  for(i = 0; i < results.length; i++){
+    const object = results[i];
+    markers = [...markers, {
+      key: i,
+      title: object.name,
+      coordinates: {
+        latitude: object.coordinates.latitude,
+        longitude: object.coordinates.longitude,
+        }, 
+    }]
+  }
+  console.log(latitude);
+  console.log(longitude);
   return (
     <View style={styles.container}>
-      <MapView style={styles.mapStyle} showsUserLocation={true} />
-      <TextInput style={styles.search} placeholder="Search 🔍"/>
-      <FlatList data={text} renderItem={({item}) => {
-        return <Restaurant name={item.name} icon={item.url} review={item.review} cost = {item.cost}/>;
+      <MapView style={styles.mapStyle} showsUserLocation={true} mapType="mutedStandard">
+      {markers.map(marker => (
+    <MapView.Marker 
+      coordinate={marker.coordinates}
+      title={marker.title}
+      pinColor = "#60ABBD"
+    />
+    ))}
+      </MapView>
+      <TextInput style={styles.search} placeholder="Search 🔍" autoCapitalize="none" autoCorrect={false} value={search}
+      onChangeText={(newValue) => setSearch(newValue)} onKeyPress={(keyPress) => console.log(keyPress)} returnKeyType='search' onSubmitEditing={
+        useEffect(() => {
+          searchApi();
+        }, [])
+      }/>
+      <FlatList data={results} renderItem={({item}) => {
+        var cost = 0;
+        if(item.price=="$")cost = 1;
+        if(item.price=="$$")cost = 2;
+        if(item.price=="$$$")cost = 3;
+        if(item.price=="$$$$")cost = 4;
+        return <Restaurant name={item.name} icon={item.image_url} review={item.rating} cost = {cost}/>;
       }}/>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
