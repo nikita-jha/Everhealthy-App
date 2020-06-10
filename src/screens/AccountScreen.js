@@ -6,6 +6,8 @@ import {Context as AuthContext} from '../context/AuthContext';
 import {FontAwesome} from '@expo/vector-icons'; 
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
+import { withNavigation } from 'react-navigation'; 
+
 
 
 const AccountScreen = ({navigation}) => {
@@ -180,4 +182,4 @@ AccountScreen.navigationOptions = () => {
   };
 };
 
-export default AccountScreen;
+export default withNavigation(AccountScreen);
