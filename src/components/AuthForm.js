@@ -21,6 +21,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText}) => {
         label="Email" 
         value={email} 
         onChangeText={setEmail}
+        keyboardType='email-address'
         autoCapitalize="none"
         autoCorrect={false}
         placeholder= ' email@address.com'

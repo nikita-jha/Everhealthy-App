@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import { StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext'; 
 import {NavigationEvents} from 'react-navigation'; 
 import AuthForm from '../components/AuthForm'; 
@@ -9,6 +9,7 @@ const SignupScreen = ({ navigation }) => {
   const {state, signup, clearErrorMessage} = useContext(AuthContext); 
 
     return (
+      <SafeAreaView>
     <KeyboardAvoidingView style={styles.container}>
       <NavigationEvents onWillFocus={clearErrorMessage}/>
       <AuthForm
@@ -25,6 +26,7 @@ const SignupScreen = ({ navigation }) => {
       />
 
     </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 };
 

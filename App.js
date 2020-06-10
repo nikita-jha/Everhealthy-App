@@ -12,21 +12,30 @@ import SigninScreen from './src/screens/SigninScreen';
 import SignupScreen from './src/screens/SignupScreen'; 
 import ResolveAuthScreen from './src/screens/ResolveAuthScreen'; 
 import {Provider as AuthProvider} from './src/context/AuthContext'; 
-import {setNavigator} from './src/navigationRef'; 
+import {setNavigator} from './src/navigationRef';
+import {MaterialCommunityIcons} from '@expo/vector-icons'; 
 
+
+    const restFlow = createStackNavigator({
+        RestaurantFind: RestaurantFindScreen,
+        Menu: MenuScreen,
+        MenuDetail: MenuDetailScreen
+    });
+
+    restFlow.navigationOptions={
+        title:"Find", 
+        tabBarIcon: <MaterialCommunityIcons name="food" size={40} color="#585858" />
+    }
 const switchNavigator = createSwitchNavigator({
     ResolveAuth: ResolveAuthScreen,
     loginFlow: createStackNavigator({
         Signup: SignupScreen,
         Signin: SigninScreen
     }),
-        HealthProfile: HealthProfileScreen, 
+    HealthProfile: HealthProfileScreen,
+ 
     mainFlow: createBottomTabNavigator({
-        restaurantFlow: createStackNavigator({
-            RestaurantFind: RestaurantFindScreen,
-            Menu: MenuScreen,
-            MenuDetail: MenuDetailScreen
-        }),
+        restaurantFlow: restFlow,
         Analysis: AnalysisScreen,
         Account: AccountScreen
     })

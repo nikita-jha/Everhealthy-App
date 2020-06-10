@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { NavigationEvents } from 'react-navigation'; 
 import { Context as AuthContext } from '../context/AuthContext'; 
 import AuthForm from '../components/AuthForm'; 
@@ -9,6 +9,7 @@ const SigninScreen = ({ navigation }) => {
   const {state, signin, clearErrorMessage} = useContext(AuthContext); 
 
     return (
+      <SafeAreaView>
     <KeyboardAvoidingView style={styles.container}>
       <NavigationEvents onWillFocus={clearErrorMessage} />
       <AuthForm
@@ -25,6 +26,7 @@ const SigninScreen = ({ navigation }) => {
       />
 
     </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 };
 

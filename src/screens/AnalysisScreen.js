@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import {Octicons} from '@expo/vector-icons'; 
+
 
 const AnalysisScreen = () => {
     return <View style={styles.container}>
@@ -16,4 +18,10 @@ const styles = StyleSheet.create({
   },
 });
 
+AnalysisScreen.navigationOptions = () => {
+  return {
+    title: 'Analysis',
+    tabBarIcon: <Octicons name="graph" size={30} color="#585858" />
+  };
+};
 export default AnalysisScreen;

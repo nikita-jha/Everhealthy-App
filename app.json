@@ -22,7 +22,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config":{
+        "googleMapsApiKey": "AIzaSyByvTpyfsU3cJx2W0DBsIoRvnSDVw3fHuU"
+      }
+    },
+    "android": {
+      "package": "com.everhealthy.EverHealthy",
+      "config":{
+        "googleMaps":{
+          "apiKey": "AIzaSyByvTpyfsU3cJx2W0DBsIoRvnSDVw3fHuU"
+        }
+      }
     }
   }
 }
