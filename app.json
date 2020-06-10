@@ -23,25 +23,15 @@
     ],
     "ios": {
       "supportsTablet": true,
-<<<<<<< HEAD
       "config":{
         "googleMapsApiKey": "AIzaSyByvTpyfsU3cJx2W0DBsIoRvnSDVw3fHuU"
-=======
-      "bundleIdentifier": "com.everhealthy.EverHealthy",
-      "config":{
-        "googleMapsApiKey": "AIzaSyAwjkY4XcdJooDOw50BvmExpqVeR9dy8C8"
->>>>>>> 37d8d937ad78083ff63fa50cf31faf12eef57942
       }
     },
     "android": {
       "package": "com.everhealthy.EverHealthy",
       "config":{
         "googleMaps":{
-<<<<<<< HEAD
           "apiKey": "AIzaSyByvTpyfsU3cJx2W0DBsIoRvnSDVw3fHuU"
-=======
-          "apiKey": "AIzaSyAwjkY4XcdJooDOw50BvmExpqVeR9dy8C8"
->>>>>>> 37d8d937ad78083ff63fa50cf31faf12eef57942
         }
       }
     }
