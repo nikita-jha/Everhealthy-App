@@ -25,7 +25,7 @@ const HealthProfileScreen = ({navigation}) => {
             alignItems: "center"
         }}>
             <Text style={styles.text}>My Health Profile</Text>
-            <MaterialIcons name="edit" size={35} color="#585858" style={{top: 35, marginLeft: 80}} />
+            <MaterialIcons name="edit" size={35} color="#585858" style={{top: 35, marginLeft: 50}} />
         </View>
 
         <View style={{width: '97%' ,alignSelf: 'center'}}>
@@ -53,57 +53,70 @@ const HealthProfileScreen = ({navigation}) => {
        <View style={styles.card}>
        <CheckBox style={{marginLeft: 10}}/>
       <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{HDL}</Text>
-          <View style={{width: '50%', left: 74}}>
+          <View style={{width: '30%', left: 74}}>
           <Input/>
           </View>
+          <Text style={{left: 75}}>g/dc</Text>
+
         </View>
 
         <View style={styles.card}>
        <CheckBox style={{marginLeft: 10}}/>
       <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{LDL}</Text>
-          <View style={{width: '50%', left: 75}}>
+          <View style={{width: '30%', left: 75}}>
           <Input/>
           </View>
+          <Text style={{left: 78}}>g/dc</Text>
+
         </View>
 
         <View style={styles.card}>
        <CheckBox style={{marginLeft: 10}}/>
       <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Triglyceride}</Text>
-          <View style={{width: '50%', left: 53}}>
+          <View style={{width: '30%', left: 55}}>
           <Input/>
           </View>
+          <Text style={{left: 60}}>g/dc</Text>
+
         </View>
 
         <View style={styles.card}>
        <CheckBox style={{marginLeft: 10}}/>
       <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Glucose}</Text>
-          <View style={{width: '50%', left: 58}}>
+          <View style={{width: '30%', left: 58}}>
           <Input/>
           </View>
+          <Text style={{left: 65}}>g/dc</Text>
+
         </View>
 
         <View style={styles.card}>
        <CheckBox style={{marginLeft: 10}}/>
       <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Iodine}</Text>
-          <View style={{width: '50%', left: 68}}>
+          <View style={{width: '30%', left: 66}}>
           <Input/>
           </View>
+                <Text style={{left: 74}}>g/dc</Text>
+
         </View>
 
         <View style={styles.card}>
        <CheckBox style={{marginLeft: 10}}/>
       <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Hemoglobin}</Text>
-          <View style={{width: '50%', left: 44}}>
+          <View style={{width: '30%', left: 42}}>
           <Input/>
           </View>
+          <Text style={{left: 52}}>g/dc</Text>
+
         </View>
 
         <View style={styles.card}>
        <CheckBox style={{marginLeft: 10}}/>
       <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Calcium}</Text>
-          <View style={{width: '50%', left: 55}}>
+          <View style={{width: '30%', left: 53}}>
           <Input/>
           </View>
+      <Text style={{left: 64}}>g/dc</Text>
         </View>
 
 
@@ -141,7 +154,7 @@ const styles = StyleSheet.create({
   text: {
     top: 35,
     fontSize: 25,
-    left: 70
+    left: 45
   },
   card: {
     flexDirection:'row',

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native';
 import {Input} from 'react-native-elements'; 
 import {MaterialIcons} from 'react-native-vector-icons'; 
 import {Entypo} from 'react-native-vector-icons'; 
@@ -9,14 +9,14 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState(''); 
 
-    return <>
+    return <KeyboardAvoidingView behavior="position">
         <Image 
         source={require('../../assets/Logo.png')}
-        style={{width: 400, height: 100, alignSelf: 'center', paddingTop: 0}}
+        style={{width: 325, height: 75, alignSelf: 'center', paddingTop: 0}}
       />
-      <View style={{marginTop: 30}}/>
+      <View style={{marginTop: 15}}/>
     <Text style={styles.text}>{headerText}</Text>
-    <View style={{marginTop: 30}}/>
+    <View style={{marginTop: 1}}/>
       <Input 
         label="Email" 
         value={email} 
@@ -56,13 +56,13 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText}) => {
          <Text style={{alignSelf: 'center', fontSize: 20}}> {submitButtonText} </Text>
       </TouchableOpacity>
     <Spacer/>
-        </>
+        </KeyboardAvoidingView>
 }; 
 
 const styles = StyleSheet.create({
     button: {
         alignSelf: 'center',
-        width: 200,
+        width: 125,
         backgroundColor: '#58acbc',
         padding: 10
           },

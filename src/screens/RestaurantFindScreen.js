@@ -7,6 +7,8 @@ import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from '
 export default function App() {
   const[longitude, setLongitude] = useState(null);
   const[latitude, setLatitude] = useState(null);
+  const [numLongitude, setNumLongitude] = useState(0.0); 
+  const [numLatitude, setNumLatitude] = useState(0.0); 
   const[results, setResults] = useState([]);
   const[search, setSearch] = useState('');
   var markers = []
@@ -15,6 +17,8 @@ export default function App() {
       position => {
         const currlongitude = JSON.stringify(position.coords.longitude);
         const currlatitude = JSON.stringify(position.coords.latitude);
+        setNumLatitude(position.coords.latitude); 
+        setNumLongitude(position.coords.longitude);
         setLongitude(currlongitude);
         setLatitude(currlatitude);
       },
@@ -84,8 +88,8 @@ export default function App() {
         }, 
     }]
   }
-  console.log(latitude);
-  console.log(longitude);
+  console.log(numLatitude);
+  console.log(numLongitude);
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle} 
@@ -93,8 +97,8 @@ export default function App() {
       loadingEnabled
       mapType="mutedStandard"
       initialRegion={{
-        latitude: 37.4219983,
-        longitude: -122.084,
+        latitude: 34.0679332,
+        longitude: -84.1788793,
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       }}

@@ -38,12 +38,15 @@ const AccountScreen = ({navigation}) => {
       setImage(result.uri);
     }
   };
+    const functionOne = () => {
+      navigation.navigate('HealthProfile'); 
+    }; 
 
     return (
       <KeyboardAvoidingView behavior='position'>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
           <Text h3 style={styles.title}>My Profile</Text>
-          <Text style={{marginLeft: 270, top: 80, fontSize: 20}}>
+          <Text style={{marginLeft: 230, top: 55, fontSize: 15}}>
             Tap to Change{"\n"}
             Profile Image
             </Text>
@@ -66,7 +69,9 @@ const AccountScreen = ({navigation}) => {
 
         <TouchableOpacity
           style={styles.button1}
-          onPress={()=>navigation.navigate('HealthProfile')}>
+          onPress={()=>{
+            functionOne(); 
+          }}>
           <Text style={{alignSelf: 'center', fontSize: 15, color: '#000'}}> Edit Health Profile </Text>
         </TouchableOpacity>
         
@@ -76,12 +81,12 @@ const AccountScreen = ({navigation}) => {
           <Text h4 style={styles.content}>Account Information</Text>
         <View style={{marginTop: 30}}/>
         <View style={styles.card}>
-          <Text style={{fontSize: 25, paddingLeft: 20}}>First Name</Text>
+          <Text style={{fontSize: 20, paddingLeft: 30}}>First Name</Text>
           <TextInput style={styles.input}/>
         </View>
 
         <View style={styles.card}>
-          <Text style={{fontSize: 25, paddingLeft: 20}}>Last Name</Text>
+          <Text style={{fontSize: 20, paddingLeft: 30}}>Last Name</Text>
           <TextInput style={styles.input}/>
         </View>  
               
@@ -93,7 +98,7 @@ const AccountScreen = ({navigation}) => {
           paddingLeft: 130,
           paddingRight: 57,
     }}>
-          <Text style={{fontSize: 25}}>E-mail</Text>
+          <Text style={{fontSize: 20}}>E-mail</Text>
           <TextInput style={styles.input}/>
         </View>
 
@@ -102,7 +107,7 @@ const AccountScreen = ({navigation}) => {
           onPress={signout}>
           <Text style={{alignSelf: 'center', fontSize: 17}}> Sign Out </Text>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
       </KeyboardAvoidingView>
     )
 }
@@ -122,8 +127,8 @@ const styles = StyleSheet.create({
     marginTop: 20
    },
    button1: {
-    marginTop: 110,
-    marginLeft: 40,
+    marginTop: 80,
+    marginLeft: 80,
     width: 150,
     height: 50,
     backgroundColor: '#B3FF66',
@@ -132,8 +137,8 @@ const styles = StyleSheet.create({
     padding: 10,
    },
    button2: {
-    top: 100,
-    marginLeft: 40,
+    top: 75,
+    marginLeft: 80,
     width: 150,
     height: 50,
     backgroundColor: '#1BA1E2',
@@ -143,7 +148,7 @@ const styles = StyleSheet.create({
    },
   title: {
     alignSelf: 'center',
-    paddingTop: 40
+    top: 40
     },
   content: {
     marginTop: '5%',
@@ -160,16 +165,16 @@ const styles = StyleSheet.create({
   input: {
     margin: 15,
     height: 40,
-    width: 200,
+    width: 160,
     borderColor: '#000',
     borderWidth: 1,
     marginLeft: 60,
         },
     image: {
-    width: 200, 
-    height: 240, 
-    marginTop: 5, 
-    marginLeft: 20,
+    top: 30,
+    width: 120, 
+    height: 160, 
+    left: 30,
     borderRadius: 50,
     overflow: 'hidden'
   }
