@@ -97,13 +97,8 @@ export default function App() {
       loadingEnabled
       mapType="mutedStandard"
       initialRegion={{
-<<<<<<< HEAD
         latitude: 37.4219984,
         longitude: -122.084,
-=======
-        latitude: 34.0679332,
-        longitude: -84.1788793,
->>>>>>> 2e8ee2ae1696a735435aa18f871964bdc69e0ab7
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       }}
