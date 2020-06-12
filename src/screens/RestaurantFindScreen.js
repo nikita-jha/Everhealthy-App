@@ -97,9 +97,9 @@ export default function App() {
       showsUserLocation={true} 
       loadingEnabled
       mapType="mutedStandard"
-      initialRegion={{
-        latitude: 34.0679367,
-        longitude: -84.1788674,
+      region={{
+        latitude: latitude,
+        longitude: longitude,
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       }}
