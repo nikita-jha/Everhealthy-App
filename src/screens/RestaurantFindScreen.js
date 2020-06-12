@@ -5,7 +5,7 @@ import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from 'react-native';
 export default function App() {
-  const place_longitude = {value: -84.1788674}; 
+  const place_longitude = {value: -113.1788674}; 
   const place_latitude = {value: 34.0679367}; 
 
   const[longitude, setLongitude] = useState(place_longitude.value);
@@ -18,7 +18,9 @@ export default function App() {
       position => {
         const currlongitude = JSON.stringify(position.coords.longitude);
         const currlatitude = JSON.stringify(position.coords.latitude);
-        
+        console.log("One: Current Latitude " + currlatitude)
+        console.log("One: Current lontigude " + currlongitude)
+
         setLongitude(currlongitude);
         setLatitude(currlatitude); 
 
@@ -30,11 +32,13 @@ export default function App() {
       position => {
         const currlongitude = JSON.stringify(position.coords.longitude);
         const currlatitude = JSON.stringify(position.coords.latitude);
-        if(currlongitude!=longitude||currlatitude!=latitude){
+        console.log("Two: Current Latitude " + currlatitude)
+        console.log("Two: Current lontigude " + currlongitude)
+        //if(currlongitude!=longitude||currlatitude!=latitude){
           setLongitude(currlongitude);
           setLatitude(currlatitude); 
- 
-        }
+          
+        //}
       },
       error => Alert.alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 900000 }
@@ -100,8 +104,8 @@ export default function App() {
       loadingEnabled
       mapType="mutedStandard"
       initialRegion={{
-        latitude: JSON.parse(latitude),
-        longitude: JSON.parse(longitude),
+        latitude: Number(latitude),
+        longitude: Number(longitude),
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       }}
