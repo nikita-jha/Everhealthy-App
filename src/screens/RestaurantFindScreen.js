@@ -16,8 +16,8 @@ export default function App() {
   const findCoordinates = async() => {
     await navigator.geolocation.getCurrentPosition(
       position => {
-        const currlongitude = JSON.stringify(position.coords.longitude);
-        const currlatitude = JSON.stringify(position.coords.latitude);
+        const currlongitude = position.coords.longitude;
+        const currlatitude = position.coords.latitude;
         
         setLongitude(currlongitude);
         setLatitude(currlatitude); 
@@ -90,8 +90,8 @@ export default function App() {
         }, 
     }]
   }
-  console.log("my_latitude: " + Number(JSON.parse(latitude))); 
-  console.log("my_longitude: " + Number(JSON.parse(longitude))); 
+  //("my_latitude: " + Number(JSON.parse(latitude))); 
+  //console.log("my_longitude: " + Number(JSON.parse(longitude))); 
 
   return (
     <View style={styles.container}>
