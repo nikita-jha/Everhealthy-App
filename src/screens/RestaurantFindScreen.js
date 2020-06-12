@@ -18,7 +18,6 @@ export default function App() {
       position => {
         const currlongitude = position.coords.longitude;
         const currlatitude = position.coords.latitude;
-        
         setLongitude(currlongitude);
         setLatitude(currlatitude); 
 
