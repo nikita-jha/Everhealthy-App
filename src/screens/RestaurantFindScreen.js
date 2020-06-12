@@ -5,9 +5,11 @@ import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from 'react-native';
 export default function App() {
-  const placeholder = {value: 0}; 
-  const[longitude, setLongitude] = useState(JSON.stringify(placeholder));
-  const[latitude, setLatitude] = useState(JSON.stringify(placeholder));
+  const place_longitude = {value: -84.1788674}; 
+  const place_latitude = {value: 34.0679367}; 
+
+  const[longitude, setLongitude] = useState(place_longitude.value);
+  const[latitude, setLatitude] = useState(place_latitude.value);
   const[results, setResults] = useState([]);
   const[search, setSearch] = useState('');
   var markers = []
@@ -88,8 +90,8 @@ export default function App() {
         }, 
     }]
   }
-  console.log("my_latitude: " + latitude)
-  console.log("my_longitude: " + longitude)
+  console.log("my_latitude: " + Number(JSON.parse(latitude))); 
+  console.log("my_longitude: " + Number(JSON.parse(longitude))); 
 
   return (
     <View style={styles.container}>
@@ -98,8 +100,8 @@ export default function App() {
       loadingEnabled
       mapType="mutedStandard"
       initialRegion={{
-        latitude: parseFloat(JSON.parse(latitude)),
-        longitude: parseFloat(JSON.parse(longitude)),
+        latitude: JSON.parse(latitude),
+        longitude: JSON.parse(longitude),
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       }}
