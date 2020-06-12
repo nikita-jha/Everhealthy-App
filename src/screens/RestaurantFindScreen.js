@@ -5,10 +5,9 @@ import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from 'react-native';
 export default function App() {
-  const[longitude, setLongitude] = useState(null);
-  const[latitude, setLatitude] = useState(null);
-  const [numLongitude, setNumLongitude] = useState(0.0); 
-  const [numLatitude, setNumLatitude] = useState(0.0); 
+  const placeholder = {value: 0}; 
+  const[longitude, setLongitude] = useState(JSON.stringify(placeholder));
+  const[latitude, setLatitude] = useState(JSON.stringify(placeholder));
   const[results, setResults] = useState([]);
   const[search, setSearch] = useState('');
   var markers = []
@@ -17,10 +16,10 @@ export default function App() {
       position => {
         const currlongitude = JSON.stringify(position.coords.longitude);
         const currlatitude = JSON.stringify(position.coords.latitude);
-        setNumLatitude(position.coords.latitude); 
-        setNumLongitude(position.coords.longitude);
+        
         setLongitude(currlongitude);
-        setLatitude(currlatitude);
+        setLatitude(currlatitude); 
+
       },
       error => Alert.alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -31,7 +30,8 @@ export default function App() {
         const currlatitude = JSON.stringify(position.coords.latitude);
         if(currlongitude!=longitude||currlatitude!=latitude){
           setLongitude(currlongitude);
-          setLatitude(currlatitude);
+          setLatitude(currlatitude); 
+ 
         }
       },
       error => Alert.alert(error.message),
@@ -88,8 +88,9 @@ export default function App() {
         }, 
     }]
   }
-  console.log(numLatitude);
-  console.log(numLongitude);
+  console.log("my_latitude: " + latitude)
+  console.log("my_longitude: " + longitude)
+
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle} 
@@ -97,8 +98,8 @@ export default function App() {
       loadingEnabled
       mapType="mutedStandard"
       initialRegion={{
-        latitude: 37.4219984,
-        longitude: -122.084,
+        latitude: parseFloat(JSON.parse(latitude)),
+        longitude: parseFloat(JSON.parse(longitude)),
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       }}
