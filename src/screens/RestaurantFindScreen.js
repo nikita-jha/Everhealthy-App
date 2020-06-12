@@ -5,11 +5,9 @@ import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from 'react-native';
 export default function App() {
-  const place_longitude = {value: -113.1788674}; 
-  const place_latitude = {value: 34.0679367}; 
 
-  const[longitude, setLongitude] = useState(place_longitude.value);
-  const[latitude, setLatitude] = useState(place_latitude.value);
+  const[longitude, setLongitude] = useState(null);
+  const[latitude, setLatitude] = useState(null);
   const[results, setResults] = useState([]);
   const[search, setSearch] = useState('');
   var markers = []
@@ -18,6 +16,7 @@ export default function App() {
       position => {
         const currlongitude = position.coords.longitude;
         const currlatitude = position.coords.latitude;
+        
         setLongitude(currlongitude);
         setLatitude(currlatitude); 
 
@@ -29,13 +28,11 @@ export default function App() {
       position => {
         const currlongitude = JSON.stringify(position.coords.longitude);
         const currlatitude = JSON.stringify(position.coords.latitude);
-        console.log("Two: Current Latitude " + currlatitude)
-        console.log("Two: Current lontigude " + currlongitude)
-        //if(currlongitude!=longitude||currlatitude!=latitude){
+        if(currlongitude!=longitude||currlatitude!=latitude){
           setLongitude(currlongitude);
           setLatitude(currlatitude); 
-          
-        //}
+ 
+        }
       },
       error => Alert.alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 900000 }
@@ -101,8 +98,8 @@ export default function App() {
       loadingEnabled
       mapType="mutedStandard"
       initialRegion={{
-        latitude: Number(latitude),
-        longitude: Number(longitude),
+        latitude: 34.0679367,
+        longitude: -84.1788674,
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       }}
