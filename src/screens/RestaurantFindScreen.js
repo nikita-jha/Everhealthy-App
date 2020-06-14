@@ -6,8 +6,11 @@ import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from 'react-native';
 export default function App() {
 
+
   const[longitude, setLongitude] = useState(null);
   const[latitude, setLatitude] = useState(null);
+  const [numLongitude, setNumLongitude] = useState(0); 
+  const [numLatitude, setNumLatitude] = useState(0); 
   const[results, setResults] = useState([]);
   const[search, setSearch] = useState('');
   var markers = []
@@ -19,6 +22,8 @@ export default function App() {
         
         setLongitude(currlongitude);
         setLatitude(currlatitude); 
+        setNumLongitude(position.coords.longitude); 
+        setNumLatitude(position.coords.latitude); 
 
       },
       error => Alert.alert(error.message),
@@ -98,8 +103,8 @@ export default function App() {
       loadingEnabled
       mapType="mutedStandard"
       region={{
-        latitude: latitude,
-        longitude: longitude,
+        latitude:numLatitude,
+        longitude: numLongitude,
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       }}
