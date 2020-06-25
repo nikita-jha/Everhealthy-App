@@ -135,6 +135,14 @@ export default function App() {
     </View>
   );
 }
+
+App.navigationOptions = () => {
+  return {
+    title: 'Choose a Restaurant',
+    headerTitleStyle: {alignSelf: 'center'}
+    
+  };
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
