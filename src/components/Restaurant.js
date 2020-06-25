@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 
+
 const Restaurant = (props) =>{
   var url = props.icon;
   if(url=='')url = 'https://images-na.ssl-images-amazon.com/images/I/51UW1849rJL._AC_SX679_.jpg';

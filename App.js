@@ -12,6 +12,7 @@ import SigninScreen from './src/screens/SigninScreen';
 import SignupScreen from './src/screens/SignupScreen'; 
 import ResolveAuthScreen from './src/screens/ResolveAuthScreen'; 
 import {Provider as AuthProvider} from './src/context/AuthContext'; 
+import {Provider as HealthInfoProvider} from './src/context/HealthInfoContext'; 
 import {setNavigator} from './src/navigationRef';
 import {MaterialCommunityIcons} from '@expo/vector-icons'; 
 
@@ -45,9 +46,11 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
     return (
+        <HealthInfoProvider>
         <AuthProvider>
             <App ref={(navigator) => {setNavigator(navigator)}}/>
         </AuthProvider>
+        </HealthInfoProvider>
     );
 }; 
 
