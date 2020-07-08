@@ -4,7 +4,7 @@ import Marker from 'react-native-maps'
 import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from 'react-native';
-export default function App() {
+export default function App({navigation}) {
 
 
   const[longitude, setLongitude] = useState(null);
@@ -49,55 +49,42 @@ export default function App() {
   const searchApi = async() => {
     var newsearch = "";
     //console.log(newsearch);
+    //console.log(longitude);
+    //console.log(latitude);
     try{
-      if(search==''){
-        const response = await mapsapi.get('/search', {
-          params: {
-            limit: 15,
-            categories: 'restaurant, food',
-            longitude: longitude,
-            latitude: latitude,
-            radius: 24140,
-          }
-        });
-        setResults(response.data.businesses);
+    const response = await mapsapi.get('/search', {
+      params: {
+        distance: 5,
+        lon: longitude,
+        lat: latitude,
+        q: search
       }
-      else {
-        const response = await mapsapi.get('/search', {
-          params: {
-            limit: 15,
-            categories: 'restaurant, food',
-            longitude: longitude,
-            latitude: latitude,
-            radius: 24140,
-            term: {search}
-          }
-        });
-        setResults(response.data.businesses);
-      }
+    });
+    setResults(response.data.result.data);
+    //console.log("Sent request");
     }
     catch(err){
-      console.log('error');
+      console.log(err);
     }
   }
   useEffect(() => {
     searchApi();
   }, [longitude, latitude, search]);
+  //console.log(results);
   var i = 0;
+  //("my_latitude: " + Number(JSON.parse(latitude))); 
+  //console.log("my_longitude: " + Number(JSON.parse(longitude))); 
   for(i = 0; i < results.length; i++){
     const object = results[i];
     markers = [...markers, {
       key: i,
-      title: object.name,
+      title: object.restaurant_name,
       coordinates: {
-        latitude: object.coordinates.latitude,
-        longitude: object.coordinates.longitude,
+        latitude: object.geo.lat,
+        longitude: object.geo.lon,
         }, 
     }]
   }
-  //("my_latitude: " + Number(JSON.parse(latitude))); 
-  //console.log("my_longitude: " + Number(JSON.parse(longitude))); 
-
   return (
     <View style={styles.container}>
       <MapView style={styles.mapStyle} 
@@ -121,18 +108,13 @@ export default function App() {
     ))}
       </MapView>
       <TextInput style={styles.search} placeholder="Search 🔍" autoCapitalize="none" autoCorrect={false} value={search}
-      onChangeText={(newValue) => setSearch(newValue)} onKeyPress={(keyPress) => console.log(keyPress)} returnKeyType='search' onSubmitEditing={
+      onChangeText={(newValue) => setSearch(newValue)} returnKeyType='search' onSubmitEditing={
         useEffect(() => {
           searchApi();
         }, [])
       }/>
       <FlatList data={results} keyExtractor={(result) => result.id} renderItem={({item}) => {
-        var cost = 0;
-        if(item.price=="$")cost = 1;
-        if(item.price=="$$")cost = 2;
-        if(item.price=="$$$")cost = 3;
-        if(item.price=="$$$$")cost = 4;
-        return <Restaurant name={item.name} icon={item.image_url} review={item.rating} cost = {cost}/>;
+        return <Restaurant onClick={() => {navigation.navigate('MenuDetail')}} id = {item.restaurant_id} name={item.restaurant_name} number={item.restaurant_phone} cuisines={item.cuisines}/>;
       }}/>
     </View>
   );

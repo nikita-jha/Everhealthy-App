@@ -1,33 +1,29 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-
-
-const Restaurant = (props) =>{
-  var url = props.icon;
-  if(url=='')url = 'https://images-na.ssl-images-amazon.com/images/I/51UW1849rJL._AC_SX679_.jpg';
-  var stars = "";
-  var cost = "";
-  var i;
-  for(i = 0; i < props.review; i++){
-    stars+="⭐"
+import { createStackNavigator } from 'react-navigation-stack';
+import MenuScreen from '../screens/MenuScreen';
+import RestaurantFindScreen from '../screens/RestaurantFindScreen';
+const Restaurant = (props, {onClick}) =>{
+  var cuisines = props.cuisines[0];
+  var i = 0;
+  for(i = 1; i < props.cuisines.length; i++){
+    cuisines = cuisines + ", " + props.cuisines[i];
   }
-  for(i = 0; i < props.cost; i++){
-    cost+="💲"
-  }
-  return (<TouchableOpacity style={{flexDirection:"column", borderBottomWidth:20, borderColor:'white'}}>
+  //console.log(navigation);
+  return (<TouchableOpacity style={{flexDirection:"column", borderBottomWidth:20, borderColor:'white'}}
+  onPress={() => onClick}>
     <Text>{props.name}</Text>
     <View style={{flexDirection:"row"}}>
-      <Image style={{height: 50, width: 50, marginTop: 5}} source={{uri: url}}/>
       <View style={{flexDirection:"column"}}>
-        <Text style={{marginLeft: 10}}>Review: {stars}</Text>
+        <Text style={{marginLeft: 10}}>📞: {props.number}</Text>
         <Text>                                                                                    </Text>
-        <Text style={{marginLeft: 10}}>Cost: {cost}</Text>
+        <Text style={{marginLeft: 10}}>Cuisine: {cuisines}</Text>
       </View>
     </View>
+
     </TouchableOpacity>
     );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

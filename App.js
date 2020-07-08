@@ -41,9 +41,7 @@ const switchNavigator = createSwitchNavigator({
         Account: AccountScreen
     })
 }); 
-
 const App = createAppContainer(switchNavigator); 
-
 export default () => {
     return (
         <HealthInfoProvider>
