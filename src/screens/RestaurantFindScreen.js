@@ -36,6 +36,8 @@ export default function App() {
         if(currlongitude!=longitude||currlatitude!=latitude){
           setLongitude(currlongitude);
           setLatitude(currlatitude); 
+          setNumLongitude(position.coords.longitude); 
+          setNumLatitude(position.coords.latitude); 
  
         }
       },
