@@ -1,19 +1,37 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { StyleSheet, Text, View, CheckBox, Image, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
 import {Input} from 'react-native-elements'; 
 import {MaterialIcons} from '@expo/vector-icons'; 
 import {Context as HealthInfoContext} from '../context/HealthInfoContext'; 
+import {NavigationEvents} from 'react-navigation';
+
 
 
 
 const HealthProfileScreen = ({navigation}) => {
   const {createHealthInfo} = useContext(HealthInfoContext);
+  const {state, fetchHealthInfo} = useContext(HealthInfoContext); 
 
   const functionTwo = async () => {
     await createHealthInfo( year, height, weight, HDL, LDL, Glucose, Triglyceride, Iodine, 
       Hemoglobin, Calcium); 
     navigation.navigate('RestaurantFind');  
   }
+  const setText = async () => {
+    console.log("setting text"); 
+  }; 
+
+  useEffect(() => {
+    let unmounted = false; 
+    console.log(state); 
+    if(!unmounted) {
+      console.log("Mounted")
+      setText(); 
+    }
+    return () => {
+      unmounted = true; 
+    }
+  }, []); 
 
   const [year, setYear] = useState(0); 
   const [height, setHeight] = useState(0); 
@@ -44,6 +62,7 @@ const HealthProfileScreen = ({navigation}) => {
 
 
   return <KeyboardAvoidingView behavior='height'>
+    <NavigationEvents onWillFocus={fetchHealthInfo}/>
   <ScrollView style={styles.container}>
       <Image 
       source={require('../../assets/Logo.png')}
@@ -64,7 +83,7 @@ const HealthProfileScreen = ({navigation}) => {
       label="Year"
       placeholder="ex: 2020"
       keyboardType="decimal-pad"
-      value="34"
+
       onChangeText={(newYear)=> setYear(newYear)}
       />
      </View>
