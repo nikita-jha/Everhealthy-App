@@ -36,6 +36,8 @@ export default function App({navigation}) {
         if(currlongitude!=longitude||currlatitude!=latitude){
           setLongitude(currlongitude);
           setLatitude(currlatitude); 
+          setNumLongitude(position.coords.longitude); 
+          setNumLatitude(position.coords.latitude); 
  
         }
       },
@@ -117,6 +119,14 @@ export default function App({navigation}) {
     </View>
   );
 }
+
+App.navigationOptions = () => {
+  return {
+    title: 'Choose a Restaurant',
+    headerTitleStyle: {alignSelf: 'center'}
+    
+  };
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,

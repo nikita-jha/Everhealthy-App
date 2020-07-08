@@ -2,7 +2,9 @@ import createDataContext from './createDataContext';
 import connectionApi from '../api/connection'; 
 
 const healthInfoReducer = (state, action) => {
-    switch (action.type){
+    switch (action.type){ 
+        case 'postHealthInfo':
+            return state; 
         case 'fetchHealthInfo': 
             return action.payload; 
         default: 
@@ -16,10 +18,14 @@ const fetchHealthInfo = dispatch => async () => {
     dispatch({type: 'fetchHealthInfo', payload: response.data}); 
 }; 
 
-const createHealthInfo = dispatch => async (year, height, weight, HDL, LDL, BloodGlucose, Triglyceride, Gluten, 
-        Hemoglobin, Iron, Potassium, Sodium) => {
-    await connectionApi.post('/HealthInfo', {year, height, weight, HDL, LDL, BloodGlucose, Triglyceride, Gluten, 
-        Hemoglobin, Iron, Potassium, Sodium}); 
+const createHealthInfo = dispatch => async (year, height, weight, HDL, LDL, Glucose, Triglyceride, Iodine, Hemoglobin, Calcium) => {
+    try{
+        await connectionApi.post('/HealthInfo', {year, height, weight, HDL, LDL, Glucose, Triglyceride, Iodine, Hemoglobin, Calcium}); 
+        dispatch({type: 'postHealthInfo'})
+    }catch(err) {
+        console.log("Hi there!")
+        console.log(err); 
+    }
 }; 
 
 export const {Provider, Context} = createDataContext (
