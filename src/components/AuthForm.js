@@ -9,7 +9,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState(''); 
 
-    return <KeyboardAvoidingView behavior="position">
+    return <KeyboardAvoidingView behavior='position'>
         <Image 
         source={require('../../assets/Logo.png')}
         style={{width: 325, height: 75, alignSelf: 'center', paddingTop: 0}}
