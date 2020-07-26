@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import MapView from 'react-native-maps';
-import Marker from 'react-native-maps'
 import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from 'react-native';
