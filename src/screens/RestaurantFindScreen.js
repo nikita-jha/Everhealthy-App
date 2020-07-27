@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MapView from 'react-native-maps';
 import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
-import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert } from 'react-native';
+import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native';
 export default function App({navigation}) {
 
 
@@ -93,8 +93,8 @@ export default function App({navigation}) {
       region={{
         latitude:numLatitude,
         longitude: numLongitude,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0.1
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01
       }}
       >
       {markers.map(marker => (
@@ -112,8 +112,20 @@ export default function App({navigation}) {
           searchApi();
         }, [])
       }/>
-      <FlatList data={results} keyExtractor={(result) => result.id} renderItem={({item}) => {
-        return <Restaurant onClick={() => {navigation.navigate('MenuDetail')}} id = {item.restaurant_id} name={item.restaurant_name} number={item.restaurant_phone} cuisines={item.cuisines}/>;
+      <FlatList 
+      data={results} 
+      keyExtractor={(result) => result.id} 
+      renderItem={({item}) => {
+        return (
+        <TouchableOpacity onPress={() => navigation.navigate('Menu', {id: item.id})}>
+          <Restaurant 
+        id = {item.restaurant_id} 
+        name={item.restaurant_name}
+        number={item.restaurant_phone} 
+        cuisines={item.cuisines}
+        />
+        </TouchableOpacity>
+  );
       }}/>
     </View>
   );

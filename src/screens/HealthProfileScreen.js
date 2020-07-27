@@ -61,7 +61,7 @@ const HealthProfileScreen = ({navigation}) => {
 
 
 
-  return <KeyboardAvoidingView behavior='height'>
+  return  <KeyboardAvoidingView behavior={"height"} enabled style={{flexGrow:1,height:'100%'}}>
     <NavigationEvents onWillFocus={fetchHealthInfo}/>
   <ScrollView style={styles.container}>
       <Image 
