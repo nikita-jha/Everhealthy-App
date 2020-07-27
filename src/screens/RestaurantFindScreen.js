@@ -114,7 +114,7 @@ export default function App({navigation}) {
       }/>
       <FlatList 
       data={results} 
-      keyExtractor={(result) => result.id} 
+      keyExtractor={(result) => result.restaurant_id.toString()} 
       renderItem={({item}) => {
         return (
         <TouchableOpacity onPress={() => navigation.navigate('Menu', {id: item.id})}>
