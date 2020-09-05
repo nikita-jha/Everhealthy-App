@@ -18,4 +18,7 @@ export default (reducer, actions, defaultValue) => {
     };
 
     return {Context, Provider};
+    //Remember that provider is the component that will make all our data accessible to the other screens
+    //in the app and Context is the context object we are going to use to get access to that information 
+    //from one of our child components
 }; 

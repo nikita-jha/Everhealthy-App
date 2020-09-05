@@ -35,6 +35,8 @@ const signup = (dispatch) => {
     return async({email, password}) => {
         try{
             const response = await everHealthyAPI.post('/signup', {email, password}); 
+            //remember, when you created the express API, your signup function had a res.send(token)
+            //with the new token you made, so this token should be available with response.data.token
             await AsyncStorage.setItem('token', response.data.token); 
             dispatch({type: 'signin', payload: response.data.token})
             navigate('HealthProfile'); 
@@ -67,7 +69,8 @@ const signout = dispatch => async () => {
 }; 
 
 export const {Provider, Context} = createDataContext(
-    authReducer, 
-    {signup, signin, signout, clearErrorMessage, tryLocalSignin},
-    {token: null, errorMessage: ''}
+    authReducer,  //reducer name 
+    {signup, signin, signout, clearErrorMessage, tryLocalSignin}, //action functions 
+    {token: null, errorMessage: ''} //initial state. These values are what are part of the state object
+    //that is being destructured out in all the screen classes
 );
