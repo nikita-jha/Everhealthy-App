@@ -28,6 +28,9 @@ const createHealthInfo = dispatch => async (year, height, weight, HDL, LDL, Gluc
     }
 }; 
 
+//remember the createDataContext below will enable us to share a set of functions or state values with
+// any other screen that needs them just by importing that specific context. Remember, you must also wrap
+//the app in App.js with all the different providers from each context file as well to be able to use them. 
 export const {Provider, Context} = createDataContext (
     healthInfoReducer, 
     {fetchHealthInfo, createHealthInfo},
