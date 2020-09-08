@@ -13,8 +13,8 @@ const HealthProfileScreen = ({navigation}) => {
   const {state, fetchHealthInfo} = useContext(HealthInfoContext); 
 
   const functionTwo = async () => {
-    await createHealthInfo( year, height, weight, HDL, LDL, Glucose, Triglyceride, Iodine, 
-      Hemoglobin, Calcium); 
+    await createHealthInfo( year, height, weight, LDL, HDL, Sodium, Glucose, Iron, 
+      Magnesium, Calcium); 
     navigation.navigate('RestaurantFind');  
   }
   const setText = async () => {
@@ -42,12 +42,12 @@ const HealthProfileScreen = ({navigation}) => {
   const [LDL, setLDL] = useState(0.0); 
   const Glucose_Text = "Glucose     "
   const [Glucose, setGlucose] = useState(0.0); 
-  const Triglyceride_Text = "Triglyceride"
-  const [Triglyceride, setTri] = useState(0.0); 
-  const Iodine_Text = "Iodine      "
-  const [Iodine, setIodine] = useState(0.0); 
-  const Hemoglobin_Text = "Hemoglobin "
-  const [Hemoglobin, setHemoglobin] = useState(0.0); 
+  const Sodium_Text = "Sodium"
+  const [Sodium, setSodium] = useState(0.0); 
+  const Iron_Text = "Iron      "
+  const [Iron, setIron] = useState(0.0); 
+  const Magnesium_Text = "Magnesium "
+  const [Magnesium, setMagnesium] = useState(0.0); 
   const Calcium_Text = "Calcium     "
   const [Calcium, setCalcium] = useState(0.0); 
 
@@ -144,14 +144,14 @@ const HealthProfileScreen = ({navigation}) => {
      value={isSelected3}
      onValueChange={setSelection3}
      />
-    <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Triglyceride_Text}</Text>
-        <View style={{width: '30%', left: 55}}>
+    <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Sodium_Text}</Text>
+        <View style={{width: '30%', left: 82}}>
         <Input
-        onChangeText={(newTri) => setTri(newTri)}
+        onChangeText={(newSodium) => setSodium(newSodium)}
         keyboardType="decimal-pad"
         />
         </View>
-        <Text style={{left: 60}}>g/dc</Text>
+        <Text style={{left: 87}}>g/dc</Text>
 
       </View>
 
@@ -162,7 +162,7 @@ const HealthProfileScreen = ({navigation}) => {
      onValueChange={setSelection4}
      />
     <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Glucose_Text}</Text>
-        <View style={{width: '30%', left: 58}}>
+        <View style={{width: '30%', left: 60}}>
         <Input
         onChangeText={(newGlucose) => setGlucose(newGlucose)}
         keyboardType="decimal-pad"
@@ -178,14 +178,14 @@ const HealthProfileScreen = ({navigation}) => {
      value={isSelected5}
      onValueChange={setSelection5}
      />
-    <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Iodine_Text}</Text>
-        <View style={{width: '30%', left: 66}}>
+    <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Iron_Text}</Text>
+        <View style={{width: '30%', left: 85}}>
         <Input
-        onChangeText={(newIodine) => setIodine(newIodine)}
+        onChangeText={(newIron) => setIron(newIron)}
         keyboardType="decimal-pad"
         />
         </View>
-              <Text style={{left: 74}}>g/dc</Text>
+              <Text style={{left: 88}}>g/dc</Text>
 
       </View>
 
@@ -195,10 +195,10 @@ const HealthProfileScreen = ({navigation}) => {
      value={isSelected6}
      onValueChange={setSelection6}
      />
-    <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Hemoglobin_Text}</Text>
-        <View style={{width: '30%', left: 42}}>
+    <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Magnesium_Text}</Text>
+        <View style={{width: '30%', left: 50}}>
         <Input
-        onChangeText={(newHemoglobin) => setHemoglobin(newHemoglobin)}
+        onChangeText={(newMagnesium) => setMagnesium(newMagnesium)}
         keyboardType="decimal-pad"
         />
         </View>
@@ -212,7 +212,7 @@ const HealthProfileScreen = ({navigation}) => {
      onValueChange={setSelection7}
      />
     <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Calcium_Text}</Text>
-        <View style={{width: '30%', left: 53}}>
+        <View style={{width: '30%', left: 58}}>
         <Input
         onChangeText={(newCalcium) => setCalcium(newCalcium)}
         keyboardType="decimal-pad"
