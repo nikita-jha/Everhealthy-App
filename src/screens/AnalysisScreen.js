@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { StyleSheet, Text, View, Dimensions, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, FlatList, Image, ScrollView } from 'react-native';
 import {Octicons} from '@expo/vector-icons'; 
 import {VictoryChart, VictoryGroup, VictoryBar, VictoryLegend, VictoryAxis} from "victory-native"; 
 import {Context as HealthInfoContext} from "../context/HealthInfoContext";
 import {NavigationEvents} from 'react-navigation';  
-import { G } from 'react-native-svg';
+import Spacer from '../components/Spacer'; 
 
 
 
@@ -37,41 +37,43 @@ const AnalysisScreen = () => {
 
   const data = {
     actual: [
-      {x: 'Calcium', y:Calcium },
-      {x: 'Glucose', y:Glucose },
+      {x: 'Cal', y:Calcium },
+      {x: 'Gluc', y:Glucose },
       {x: 'HDL', y:HDL },
       {x: 'LDL', y:LDL },
       {x: 'Iron', y:Iron },
-      {x: 'Magnesium', y:Magnesium },
-      {x: 'Sodium', y:Sodium },
+      {x: 'Mag', y:Magnesium },
+      {x: 'Sod', y:Sodium },
 
     ],
   }; 
     return <View style={styles.container}>
+      <ScrollView style={styles.scrollView}>
       <NavigationEvents onWillFocus={fetchHealthInfo}/>
-      
-      <FlatList 
-        data={state}
-        keyExtractor={item => item._id}
-        renderItem={({ item }) => (
-          <View>
-            <Text>LDL: {item.LDL}</Text>
-            <Text>HDL: {item.HDL}</Text>
-            <Text>Sodium: {item.Sodium}</Text>
-            <Text>Glucose: {item.Glucose}</Text>
-            <Text>Iron: {item.Iron}</Text>
-            <Text>Magnesium: {item.Magnesium}</Text>
-            <Text>Calcium: {item.Calcium}</Text>
-
-          </View>
-        )}
-      />
-        <VictoryChart>
-          <VictoryAxis label="Week" /> 
-          <VictoryAxis dependentAxis label="Hours" style={{
+      <Image 
+      source={require('../../assets/Logo.png')}
+      style={styles.image}
+    />
+          <Text style={styles.text}>Analysis: Your Blood Levels</Text>
+        <Spacer/>
+        <VictoryChart   
+        padding={{top: 50, left: 60, right: 40, bottom: 50}}
+        height={275}
+        width={350}
+        >
+          <VictoryAxis label="Blood Biomarker" style={{
             axisLabel: {
-              padding: 30
+              padding: 35
             }
+          }} /> 
+          <VictoryAxis 
+          dependentAxis 
+          label="Quantity" 
+           
+          style={{
+            axisLabel: {
+              padding: 35
+            },
           }} /> 
 
           <VictoryGroup offset={20}>
@@ -79,7 +81,7 @@ const AnalysisScreen = () => {
             data={data.actual}
             style={{
               data: {
-                fill: 'blue'
+                fill: '#58acbc'
               }
             }}
             />
@@ -91,18 +93,120 @@ const AnalysisScreen = () => {
             {
               name: 'Actual',
               symbol: {
-                fill: 'blue'
+                fill: '#58acbc'
               }
             },
           ]}/>
         </VictoryChart>
-    </View>
+        <VictoryChart   
+        padding={{top: 50, left: 60, right: 40, bottom: 50}}
+        height={275}
+        width={350}
+        >
+          <VictoryAxis label="Blood Biomarker" style={{
+            axisLabel: {
+              padding: 35
+            }
+          }} /> 
+          <VictoryAxis 
+          dependentAxis 
+          label="Quantity" 
+           
+          style={{
+            axisLabel: {
+              padding: 35
+            },
+          }} /> 
+
+          <VictoryGroup offset={20}>
+            <VictoryBar 
+            data={data.actual}
+            style={{
+              data: {
+                fill: '#58acbc'
+              }
+            }}
+            />
+          </VictoryGroup>
+          <VictoryLegend
+          x={Dimensions.get('screen').width / 2 - 50}
+          orientation="horizontal"
+          data={[
+            {
+              name: 'Actual',
+              symbol: {
+                fill: '#58acbc'
+              }
+            },
+          ]}/>
+        </VictoryChart>
+        <VictoryChart   
+        padding={{top: 50, left: 60, right: 40, bottom: 50}}
+        height={275}
+        width={350}
+        >
+          <VictoryAxis label="Blood Biomarker" style={{
+            axisLabel: {
+              padding: 35
+            }
+          }} /> 
+          <VictoryAxis 
+          dependentAxis 
+          label="Quantity" 
+           
+          style={{
+            axisLabel: {
+              padding: 35
+            },
+          }} /> 
+
+          <VictoryGroup offset={20}>
+            <VictoryBar 
+            data={data.actual}
+            style={{
+              data: {
+                fill: '#58acbc'
+              }
+            }}
+            />
+          </VictoryGroup>
+          <VictoryLegend
+          x={Dimensions.get('screen').width / 2 - 50}
+          orientation="horizontal"
+          data={[
+            {
+              name: 'Actual',
+              symbol: {
+                fill: '#58acbc'
+              }
+            },
+          ]}/>
+        </VictoryChart>
+        </ScrollView>
+    </View >
 }
 
 const styles = StyleSheet.create({
   container: {
-
+    flex: 1
+    
   },
+  image: {
+    alignSelf: 'center', 
+    top: 30,
+    width: 200, 
+    height: 50
+  },
+  text: {
+    top: 40,
+    fontWeight: "bold", 
+    fontSize: 25,
+    left: Dimensions.get('screen').width / 2 - 155
+    
+  },
+  scrollView: {
+    flex: 1
+  }
 });
 
 AnalysisScreen.navigationOptions = () => {
