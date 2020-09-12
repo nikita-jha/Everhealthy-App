@@ -6,12 +6,12 @@ import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert, Touchab
 import postalcode from '../api/postalcode';
 export default function App({navigation}) {
 
-  const[longitude, setLongitude] = useState(-84.187820);
-  const[latitude, setLatitude] = useState(34.041061);
-  const [numLongitude, setNumLongitude] = useState(-84.187820); 
-  const [numLatitude, setNumLatitude] = useState(34.041061); 
+  const[longitude, setLongitude] = useState(null);
+  const[latitude, setLatitude] = useState(null);
+  const [numLongitude, setNumLongitude] = useState(0); 
+  const [numLatitude, setNumLatitude] = useState(0); 
   const [zipCode, setZipCode] = useState(0);
-  const[results, setResults] = useState([1]);
+  const[results, setResults] = useState([]);
   const[search, setSearch] = useState('');
   var markers = []
   const findCoordinates = async() => {
@@ -61,8 +61,8 @@ export default function App({navigation}) {
           gen: 9
         }
       });
-      console.log('RESULTS');
-      console.log(results);
+      //console.log('RESULTS');
+      //console.log(results);
       const actresults = results.data.Response.View[0].Result[0].Location.Address;
       setZipCode(actresults.PostalCode);
     }
@@ -81,17 +81,18 @@ export default function App({navigation}) {
     const response = await mapsapi.get('/location.php', {
       params: {
         key: '76e92658-ed95-11ea-91c0-525400552a35',
-        postal_code: zipCode,
+        postal_code: 30097,
         country: 'US',
         s: search
       }
     });
-    setResults(response.data.response.result.restaurant);
-    console.log(results.length);
+    setResults(response.data.response.result.restaurants);
+    console.log("results length: " + results.length)
+
+    //console.log("results: " + response.data.response.result.restaurants[0].restaurant_name);
     }
     catch(err){
-      console.log('SearchAPI')
-      console.log(err);
+      console.log('SearchAPI: ' + err)
     }
   }
   useEffect(() => {
@@ -103,12 +104,17 @@ export default function App({navigation}) {
   //console.log("my_longitude: " + Number(JSON.parse(longitude))); 
   for(i = 0; i < results.length; i++){
     const object = results[i];
+    console.log("object: " + object)
+
+    console.log("object latitude: " + object.latitude)
+    console.log("object longitude: " + object.longitude)
+
     markers = [...markers, {
       key: i,
       title: object.restaurant_name,
       coordinates: {
-        latitude: object.latitude,
-        longitude: object.longitude,
+        latitude: parseInt(object.latitude),
+        longitude: parseInt(object.longitude),
         }, 
     }]
   }
@@ -140,6 +146,21 @@ export default function App({navigation}) {
           searchApi();
         }, [])
       }/>
+{/*       <FlatList 
+      data={results} 
+      keyExtractor={(result) => result.restaurant_id.toString()} 
+      renderItem={({item}) => {
+        return (
+        <TouchableOpacity onPress={() => navigation.navigate('Menu', {id: item.id})}>
+          <Restaurant 
+        id = {item.restaurant_id} 
+        name={item.restaurant_name}
+        number={item.restaurant_phone} 
+        cuisines={item.cuisines}
+        />
+        </TouchableOpacity>
+  );
+      }}/> */}
     </View>
   );
 }
@@ -156,7 +177,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   mapStyle: {
     width: Dimensions.get('window').width,
