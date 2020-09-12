@@ -3,72 +3,100 @@ import MapView from 'react-native-maps';
 import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native';
+import postalcode from '../api/postalcode';
 export default function App({navigation}) {
 
-
-  const[longitude, setLongitude] = useState(null);
-  const[latitude, setLatitude] = useState(null);
-  const [numLongitude, setNumLongitude] = useState(0); 
-  const [numLatitude, setNumLatitude] = useState(0); 
-  const[results, setResults] = useState([]);
+  const[longitude, setLongitude] = useState(-84.187820);
+  const[latitude, setLatitude] = useState(34.041061);
+  const [numLongitude, setNumLongitude] = useState(-84.187820); 
+  const [numLatitude, setNumLatitude] = useState(34.041061); 
+  const [zipCode, setZipCode] = useState(0);
+  const[results, setResults] = useState([1]);
   const[search, setSearch] = useState('');
   var markers = []
   const findCoordinates = async() => {
-    await navigator.geolocation.getCurrentPosition(
-      position => {
-        const currlongitude = position.coords.longitude;
-        const currlatitude = position.coords.latitude;
-        
-        setLongitude(currlongitude);
-        setLatitude(currlatitude); 
-        setNumLongitude(position.coords.longitude); 
-        setNumLatitude(position.coords.latitude); 
-
-      },
-      error => Alert.alert(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
-    navigator.geolocation.watchPosition(
-      position => {
-        const currlongitude = JSON.stringify(position.coords.longitude);
-        const currlatitude = JSON.stringify(position.coords.latitude);
-        if(currlongitude!=longitude||currlatitude!=latitude){
+    try{
+      await navigator.geolocation.getCurrentPosition(
+        position => {
+          const currlongitude = position.coords.longitude;
+          const currlatitude = position.coords.latitude;
           setLongitude(currlongitude);
           setLatitude(currlatitude); 
           setNumLongitude(position.coords.longitude); 
           setNumLatitude(position.coords.latitude); 
- 
-        }
-      },
-      error => Alert.alert(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 900000 }
-    );
-  };
-  findCoordinates();
-  const searchApi = async() => {
-    var newsearch = "";
-    //console.log(newsearch);
-    //console.log(longitude);
-    //console.log(latitude);
-    try{
-    const response = await mapsapi.get('/search', {
-      params: {
-        distance: 5,
-        lon: longitude,
-        lat: latitude,
-        q: search
-      }
-    });
-    setResults(response.data.result.data);
-    //console.log("Sent request");
+  
+        },
+        error => Alert.alert(error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      );
+      navigator.geolocation.watchPosition(
+        position => {
+          const currlongitude = JSON.stringify(position.coords.longitude);
+          const currlatitude = JSON.stringify(position.coords.latitude);
+          if(currlongitude!=longitude||currlatitude!=latitude){
+            setLongitude(currlongitude);
+            setLatitude(currlatitude); 
+            setNumLongitude(position.coords.longitude); 
+            setNumLatitude(position.coords.latitude); 
+   
+          }
+        },
+        error => Alert.alert(error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 900000 }
+      );
     }
     catch(err){
+      console.log('navigator lat long');
+    }
+  };
+  const reversegeo = async() => {
+    try{
+      const prox = latitude + ',' + longitude + ',' + 1;
+      const results = await postalcode.get('/reversegeocode.json', {
+        params: {
+          prox,
+          mode: 'retrieveAddresses',
+          apiKey: 'ZzPS_PzDHFia_uGSQsi0YLy-FZjNpdbISXboOIfpSaE',
+          maxresults: 1,
+          gen: 9
+        }
+      });
+      console.log('RESULTS');
+      console.log(results);
+      const actresults = results.data.Response.View[0].Result[0].Location.Address;
+      setZipCode(actresults.PostalCode);
+    }
+    catch(err){
+      console.log(err);
+      console.log('Reverse geo');
+    }
+  }
+  findCoordinates();
+  useEffect(() => {
+    reversegeo();
+  });
+  const searchApi = async() => {
+    try{
+    console.log('zip code: ' + zipCode);
+    const response = await mapsapi.get('/location.php', {
+      params: {
+        key: '76e92658-ed95-11ea-91c0-525400552a35',
+        postal_code: zipCode,
+        country: 'US',
+        s: search
+      }
+    });
+    setResults(response.data.response.result.restaurant);
+    console.log(results.length);
+    }
+    catch(err){
+      console.log('SearchAPI')
       console.log(err);
     }
   }
   useEffect(() => {
     searchApi();
-  }, [longitude, latitude, search]);
+  }, [zipCode, search]);
   //console.log(results);
   var i = 0;
   //("my_latitude: " + Number(JSON.parse(latitude))); 
@@ -79,8 +107,8 @@ export default function App({navigation}) {
       key: i,
       title: object.restaurant_name,
       coordinates: {
-        latitude: object.geo.lat,
-        longitude: object.geo.lon,
+        latitude: object.latitude,
+        longitude: object.longitude,
         }, 
     }]
   }
@@ -112,21 +140,6 @@ export default function App({navigation}) {
           searchApi();
         }, [])
       }/>
-      <FlatList 
-      data={results} 
-      keyExtractor={(result) => result.restaurant_id.toString()} 
-      renderItem={({item}) => {
-        return (
-        <TouchableOpacity onPress={() => navigation.navigate('Menu', {id: item.id})}>
-          <Restaurant 
-        id = {item.restaurant_id} 
-        name={item.restaurant_name}
-        number={item.restaurant_phone} 
-        cuisines={item.cuisines}
-        />
-        </TouchableOpacity>
-  );
-      }}/>
     </View>
   );
 }
