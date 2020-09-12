@@ -86,8 +86,11 @@ export default function App({navigation}) {
         s: search
       }
     });
-    setResults(response.data.response.result.restaurants);
-    console.log("results length: " + results.length)
+    if(results.length > 0){
+          setResults(response.data.response.result.restaurants);
+
+    }
+    //console.log("results length: " + results.length)
 
     //console.log("results: " + response.data.response.result.restaurants[0].restaurant_name);
     }
@@ -102,22 +105,24 @@ export default function App({navigation}) {
   var i = 0;
   //("my_latitude: " + Number(JSON.parse(latitude))); 
   //console.log("my_longitude: " + Number(JSON.parse(longitude))); 
-  for(i = 0; i < results.length; i++){
-    const object = results[i];
-
-    markers = [...markers, {
-      key: i,
-      title: object.restaurant_name,
-      coordinates: {
-        latitude: parseInt(object.latitude),
-        longitude: parseInt(object.longitude),
-        }, 
-        
-    }]
-    //console.log("title: " + object.restaurant_name);
-    //console.log("coordinates latitude: " + object.latitude)
-    //console.log("coordinates longitude: " + object.longitude)
-
+  if(results.length > 0){
+    for(i = 0; i < results.length; i++){
+      const object = results[i];
+  
+      markers = [...markers, {
+        key: i,
+        title: object.restaurant_name,
+        coordinates: {
+          latitude: parseInt(object.latitude),
+          longitude: parseInt(object.longitude),
+          }, 
+          
+      }]
+      //console.log("title: " + object.restaurant_name);
+      //console.log("coordinates latitude: " + object.latitude)
+      //console.log("coordinates longitude: " + object.longitude)
+  
+    }
   }
   return (
     <View style={styles.container}>
