@@ -81,7 +81,7 @@ export default function App({navigation}) {
     const response = await mapsapi.get('/location.php', {
       params: {
         key: '76e92658-ed95-11ea-91c0-525400552a35',
-        postal_code: 30097,
+        postal_code: zipCode,
         country: 'US',
         s: search
       }
@@ -104,10 +104,6 @@ export default function App({navigation}) {
   //console.log("my_longitude: " + Number(JSON.parse(longitude))); 
   for(i = 0; i < results.length; i++){
     const object = results[i];
-    console.log("object: " + object)
-
-    console.log("object latitude: " + object.latitude)
-    console.log("object longitude: " + object.longitude)
 
     markers = [...markers, {
       key: i,
@@ -116,7 +112,12 @@ export default function App({navigation}) {
         latitude: parseInt(object.latitude),
         longitude: parseInt(object.longitude),
         }, 
+        
     }]
+    //console.log("title: " + object.restaurant_name);
+    //console.log("coordinates latitude: " + object.latitude)
+    //console.log("coordinates longitude: " + object.longitude)
+
   }
   return (
     <View style={styles.container}>
