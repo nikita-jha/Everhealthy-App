@@ -4,16 +4,19 @@ import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native';
 import postalcode from '../api/postalcode';
-export default function App({navigation}) {
+import { useIsFocused } from '@react-navigation/native';
 
+export default function App({navigation}) {
   const[longitude, setLongitude] = useState(null);
   const[latitude, setLatitude] = useState(null);
   const [numLongitude, setNumLongitude] = useState(0); 
   const [numLatitude, setNumLatitude] = useState(0); 
-  const [zipCode, setZipCode] = useState(0);
+  const [zipCode, setZipCode] = useState(30097);
   const[results, setResults] = useState([]);
   const[search, setSearch] = useState('');
+  //const [isAPIProcessing, setIsAPIProcessing] = useState(true); 
   var markers = []
+
   const findCoordinates = async() => {
     try{
       await navigator.geolocation.getCurrentPosition(
@@ -74,9 +77,10 @@ export default function App({navigation}) {
   findCoordinates();
   useEffect(() => {
     reversegeo();
-  });
+  }, []);
   const searchApi = async() => {
     try{
+      if(zipCode != 0){
     console.log('zip code: ' + zipCode);
     const response = await mapsapi.get('/location.php', {
       params: {
@@ -86,25 +90,22 @@ export default function App({navigation}) {
         s: search
       }
     });
-    if(results.length > 0){
-          setResults(response.data.response.result.restaurants);
+    setResults(response.data.response.result.restaurants);
 
     }
-    //console.log("results length: " + results.length)
-
-    //console.log("results: " + response.data.response.result.restaurants[0].restaurant_name);
-    }
+  }
     catch(err){
       console.log('SearchAPI: ' + err)
     }
   }
+
   useEffect(() => {
     searchApi();
   }, [zipCode, search]);
+  
   //console.log(results);
   var i = 0;
-  //("my_latitude: " + Number(JSON.parse(latitude))); 
-  //console.log("my_longitude: " + Number(JSON.parse(longitude))); 
+
   if(results.length > 0){
     for(i = 0; i < results.length; i++){
       const object = results[i];
@@ -113,14 +114,11 @@ export default function App({navigation}) {
         key: i,
         title: object.restaurant_name,
         coordinates: {
-          latitude: parseInt(object.latitude),
-          longitude: parseInt(object.longitude),
+          latitude: parseFloat(object.latitude),
+          longitude: parseFloat(object.longitude),
           }, 
           
       }]
-      //console.log("title: " + object.restaurant_name);
-      //console.log("coordinates latitude: " + object.latitude)
-      //console.log("coordinates longitude: " + object.longitude)
   
     }
   }
@@ -133,8 +131,8 @@ export default function App({navigation}) {
       region={{
         latitude:numLatitude,
         longitude: numLongitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01
+        latitudeDelta: 0.2,
+        longitudeDelta: 0.2
       }}
       >
       {markers.map(marker => (
@@ -152,21 +150,21 @@ export default function App({navigation}) {
           searchApi();
         }, [])
       }/>
-{/*       <FlatList 
+      <FlatList 
       data={results} 
-      keyExtractor={(result) => result.restaurant_id.toString()} 
+      keyExtractor={(result) => result.id.toString()} 
       renderItem={({item}) => {
         return (
-        <TouchableOpacity onPress={() => navigation.navigate('Menu', {id: item.id})}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu', {id: navigation.getParams('id')})}>
           <Restaurant 
-        id = {item.restaurant_id} 
+        id = {item.id} 
         name={item.restaurant_name}
-        number={item.restaurant_phone} 
-        cuisines={item.cuisines}
+        briefDescription={item.brief_description} 
+        cuisines={item.cuisine_type_primary}
         />
         </TouchableOpacity>
   );
-      }}/> */}
+      }}/>
     </View>
   );
 }
