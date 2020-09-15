@@ -1,15 +1,17 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 const Restaurant = (props, {onClick}) =>{
-  var i = 0;
-
-  return (<View style={{flexDirection:"column", borderBottomWidth:20, borderColor:'white'}}>
-    <Text style={{marginLeft: 10, color: 'blue'}}>{props.name}</Text>
+  return (<View 
+  style={{
+  flexDirection:"column", 
+  borderBottomWidth:20, 
+  borderColor:'white'  }}>
+    <Text style={{color: '#168294', fontSize: 20, fontWeight: 'bold'}}>{props.name}</Text>
     <View style={{flexDirection:"row"}}>
       <View style={{flexDirection:"column"}}>
-        <Text style={{marginLeft: 10}}>{props.briefDescription}</Text>
+        <Text style={{top: 10, fontSize: 15}}>📍 Address: {props.address}</Text>
         <Text>                                                                                    </Text>
-        <Text style={{marginLeft: 10}}>Cuisine: {props.cuisines}</Text>
+        <Text style={{fontWeight: 'bold', fontSize: 15}}>Cuisine: {props.cuisines}</Text>
       </View>
     </View>
 
