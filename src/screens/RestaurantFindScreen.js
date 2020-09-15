@@ -4,7 +4,7 @@ import Restaurant from '../components/Restaurant';
 import mapsapi from '../api/mapsapi';
 import { StyleSheet, View, Dimensions, Text, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native';
 import postalcode from '../api/postalcode';
-import { useIsFocused } from '@react-navigation/native';
+import {ListItem} from 'react-native-elements'; 
 
 export default function App({navigation}) {
   const[longitude, setLongitude] = useState(null);
@@ -91,6 +91,7 @@ export default function App({navigation}) {
       }
     });
     setResults(response.data.response.result.restaurants);
+    //console.log(response.data.response.result.restaurants); 
 
     }
   }
@@ -151,15 +152,16 @@ export default function App({navigation}) {
         }, [])
       }/>
       <FlatList 
+      style={styles.flatList}
       data={results} 
       keyExtractor={(result) => result.id.toString()} 
       renderItem={({item}) => {
         return (
-        <TouchableOpacity onPress={() => navigation.navigate('Menu', {id: navigation.getParams('id')})}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu', {id:item.id})}>
           <Restaurant 
         id = {item.id} 
         name={item.restaurant_name}
-        briefDescription={item.brief_description} 
+        address={item.address_1} 
         cuisines={item.cuisine_type_primary}
         />
         </TouchableOpacity>
@@ -196,5 +198,8 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     width:Dimensions.get('window').width
+  },
+  flatList: {
+    right: 8,
   }
 });
