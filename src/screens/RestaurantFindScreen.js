@@ -49,7 +49,7 @@ export default function App({navigation}) {
       );
     }
     catch(err){
-      console.log('navigator lat long');
+      //console.log('navigator lat long');
     }
   };
   const reversegeo = async() => {
@@ -70,8 +70,8 @@ export default function App({navigation}) {
       setZipCode(actresults.PostalCode);
     }
     catch(err){
-      console.log(err);
-      console.log('Reverse geo');
+      //console.log(err);
+      //console.log('Reverse geo');
     }
   }
   findCoordinates();
@@ -81,7 +81,7 @@ export default function App({navigation}) {
   const searchApi = async() => {
     try{
       if(zipCode != 0){
-    console.log('zip code: ' + zipCode);
+    //console.log('zip code: ' + zipCode);
     const response = await mapsapi.get('/location.php', {
       params: {
         key: '76e92658-ed95-11ea-91c0-525400552a35',
@@ -96,7 +96,7 @@ export default function App({navigation}) {
     }
   }
     catch(err){
-      console.log('SearchAPI: ' + err)
+      //console.log('SearchAPI: ' + err)
     }
   }
 
@@ -164,6 +164,7 @@ export default function App({navigation}) {
         address={item.address_1} 
         cuisines={item.cuisine_type_primary}
         />
+        
         </TouchableOpacity>
   );
       }}/>
