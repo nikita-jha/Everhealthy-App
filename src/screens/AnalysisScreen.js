@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Dimensions, FlatList, Image, ScrollView } from 'react-native';
 import {Octicons} from '@expo/vector-icons'; 
-import {VictoryChart, VictoryGroup, VictoryBar, VictoryLegend, VictoryAxis} from "victory-native"; 
+import {VictoryChart, VictoryTheme, VictoryGroup, VictoryBar, VictoryLegend, VictoryAxis, VictoryBoxPlot, VictoryScatter} from "victory-native"; 
 import {Context as HealthInfoContext} from "../context/HealthInfoContext";
 import {NavigationEvents} from 'react-navigation';  
 import Spacer from '../components/Spacer'; 
+import { color } from 'react-native-reanimated';
 
 
 
@@ -19,7 +20,7 @@ const AnalysisScreen = () => {
   const [Magnesium, setMagnesium] = useState(0); 
   const [Calcium, setCalcium] = useState(0); 
 
-  //console.log(JSON.stringify(state).length); 
+  console.log(JSON.stringify(state).length); 
   //console.log("Right before state[0].Sodium")
   useEffect(() => {
     if(JSON.stringify(state).length > 2){
@@ -47,142 +48,64 @@ const AnalysisScreen = () => {
 
     ],
   }; 
+
+  console.log(data);
+
+  const normalCalcium = [8.6, 10.3];
+  const normalGlucose = [70, 99];
+  const normalHDL = [35.5, 48.6];
+  const normalLDL = [35.5, 48.6];
+  const normalIron = [35.5, 48.6];
+  const normalMag = [35.5, 48.6];
+  const normalSod = [35.5, 48.6];
+
+  var colorCalcium = "#FFFFFF";
+  var colorGlucose = "#FFFFFF";
+  var colorHDL = "#FFFFFF";
+  var colorLDL = "#FFFFFF";
+  var colorIron = "#FFFFFF";
+  var colorMag = "#FFFFFF";
+  var colorSod = "#FFFFFF";
+  if(data.actual[0].y < normalCalcium[0] || data.actual[0].y > normalCalcium[1])colorCalcium = "#c43a31";
+  if(data.actual[1].y < normalGlucose[0] || data.actual[1].y > normalGlucose[1])colorGlucose = "#c43a31";
+  if(data.actual[2].y < normalHDL[0] || data.actual[2].y > normalHDL[1])colorHDL = "#c43a31";
+  if(data.actual[3].y < normalLDL[0] || data.actual[3].y > normalLDL[1])colorLDL = "#c43a31";
+  if(data.actual[4].y < normalIron[0] || data.actual[4].y > normalIron[1])colorIron = "#c43a31";
+  if(data.actual[5].y < normalMag[0] || data.actual[5].y > normalMag[1])colorMag = "#c43a31";
+  if(data.actual[6].y < normalSod[0] || data.actual[6].y > normalSod[1])colorSod = "#c43a31";
+
     return <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
       <NavigationEvents onWillFocus={fetchHealthInfo}/>
       <Image 
       source={require('../../assets/Logo.png')}
       style={styles.image}
-    />
-          <Text style={styles.text}>Analysis: Your Blood Levels</Text>
-        <Spacer/>
-        <VictoryChart   
-        padding={{top: 50, left: 60, right: 40, bottom: 50}}
-        height={275}
-        width={350}
-        >
-          <VictoryAxis label="Blood Biomarker" style={{
-            axisLabel: {
-              padding: 35
-            }
-          }} /> 
-          <VictoryAxis 
-          dependentAxis 
-          label="Quantity" 
-           
-          style={{
-            axisLabel: {
-              padding: 35
-            },
-          }} /> 
-
-          <VictoryGroup offset={20}>
-            <VictoryBar 
-            data={data.actual}
-            style={{
-              data: {
-                fill: '#58acbc'
-              }
-            }}
-            />
-          </VictoryGroup>
-          <VictoryLegend
-          x={Dimensions.get('screen').width / 2 - 50}
-          orientation="horizontal"
-          data={[
-            {
-              name: 'Actual',
-              symbol: {
-                fill: '#58acbc'
-              }
-            },
-          ]}/>
-        </VictoryChart>
-        <VictoryChart   
-        padding={{top: 50, left: 60, right: 40, bottom: 50}}
-        height={275}
-        width={350}
-        >
-          <VictoryAxis label="Blood Biomarker" style={{
-            axisLabel: {
-              padding: 35
-            }
-          }} /> 
-          <VictoryAxis 
-          dependentAxis 
-          label="Quantity" 
-           
-          style={{
-            axisLabel: {
-              padding: 35
-            },
-          }} /> 
-
-          <VictoryGroup offset={20}>
-            <VictoryBar 
-            data={data.actual}
-            style={{
-              data: {
-                fill: '#58acbc'
-              }
-            }}
-            />
-          </VictoryGroup>
-          <VictoryLegend
-          x={Dimensions.get('screen').width / 2 - 50}
-          orientation="horizontal"
-          data={[
-            {
-              name: 'Actual',
-              symbol: {
-                fill: '#58acbc'
-              }
-            },
-          ]}/>
-        </VictoryChart>
-        <VictoryChart   
-        padding={{top: 50, left: 60, right: 40, bottom: 50}}
-        height={275}
-        width={350}
-        >
-          <VictoryAxis label="Blood Biomarker" style={{
-            axisLabel: {
-              padding: 35
-            }
-          }} /> 
-          <VictoryAxis 
-          dependentAxis 
-          label="Quantity" 
-           
-          style={{
-            axisLabel: {
-              padding: 35
-            },
-          }} /> 
-
-          <VictoryGroup offset={20}>
-            <VictoryBar 
-            data={data.actual}
-            style={{
-              data: {
-                fill: '#58acbc'
-              }
-            }}
-            />
-          </VictoryGroup>
-          <VictoryLegend
-          x={Dimensions.get('screen').width / 2 - 50}
-          orientation="horizontal"
-          data={[
-            {
-              name: 'Actual',
-              symbol: {
-                fill: '#58acbc'
-              }
-            },
-          ]}/>
-        </VictoryChart>
-        </ScrollView>
+      />
+      <Spacer/>
+      <Text style={{textAlign: "center"}}> Calcium </Text>
+      <VictoryChart height={150} >
+      <VictoryAxis
+      dependentAxis/>
+      <VictoryScatter 
+        style={{ data: { fill: colorCalcium } }}
+        data={[
+          { x: 1, y: data.actual[0].y, symbol: "diamond", size: 7 }
+        ]}
+      />
+      <VictoryBoxPlot 
+      horizontal
+      style={{
+        min: { stroke: "#46A8C0" },
+        max: { stroke: "#46A8C0" },
+        q1: { fill: "#46A8C0" },
+        q3: { fill: "#46A8C0" },
+        median: { stroke: "#46A8C0", strokeWidth: 2 },
+      }}
+      data={[
+        { x: 1, y: [0, 8.6, 9.9, 10.3, 15] },
+      ]}/>
+      </VictoryChart>
+      </ScrollView>
     </View >
 }
 
