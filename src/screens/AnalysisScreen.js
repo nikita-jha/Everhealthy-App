@@ -83,6 +83,13 @@ const AnalysisScreen = () => {
       />
       <Spacer/>
       <Text style={{textAlign: "center"}}> Calcium </Text>
+      <VictoryChart height={150}>
+      <VictoryAxis style={{ 
+    axis: {stroke: "transparent"}, 
+    ticks: {stroke: "transparent"},
+    tickLabels: { fill:"transparent"} 
+}}
+      dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorCalcium } }}
         data={[
@@ -105,6 +112,8 @@ const AnalysisScreen = () => {
       data={[
         { x: 1, y: [0, 8.1, 9.9, 10.3, 15] },
       ]}/>
+            </VictoryChart>
+
       </ScrollView>
     </View >
 }
