@@ -93,7 +93,7 @@ const AnalysisScreen = () => {
       <VictoryScatter 
         style={{ data: { fill: colorCalcium } }}
         data={[
-          { x: 1, y: data.actual[0].y, symbol: "diamond", size: 7 }
+          { x: 2, y: data.actual[0].y, symbol: "diamond", size: 7 }
         ]}
       />
       <VictoryBoxPlot 
