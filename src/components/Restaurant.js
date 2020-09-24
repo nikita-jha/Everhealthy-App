@@ -5,13 +5,15 @@ const Restaurant = (props, {onClick}) =>{
   style={{
   flexDirection:"column", 
   borderBottomWidth:20, 
-  borderColor:'white'  }}>
+  borderColor:'#f4fcfc',
+  backgroundColor: '#f4fcfc'
+  }}>
     <Text style={{color: '#168294', fontSize: 20, fontWeight: 'bold'}}>{props.name}</Text>
     <View style={{flexDirection:"row"}}>
       <View style={{flexDirection:"column"}}>
         <Text style={{top: 10, fontSize: 15}}>📍 Address: {props.address}</Text>
         <Text>                                                                                    </Text>
-        <Text style={{fontWeight: 'bold', fontSize: 15}}>Cuisine: {props.cuisines}</Text>
+        <Text style={{fontWeight: 'bold', fontSize: 15}}>🍴 Cuisine: {props.cuisines}</Text>
       </View>
     </View>
 

@@ -78,10 +78,11 @@ export default function App({navigation}) {
   useEffect(() => {
     reversegeo();
   }, []);
+  //console.log('zip code: ' + zipCode);
+
   const searchApi = async() => {
     try{
       if(zipCode != 0){
-    //console.log('zip code: ' + zipCode);
     const response = await mapsapi.get('/location.php', {
       params: {
         key: '76e92658-ed95-11ea-91c0-525400552a35',
@@ -140,7 +141,7 @@ export default function App({navigation}) {
     <MapView.Marker 
       coordinate={marker.coordinates}
       title={marker.title}
-      pinColor = "#60ABBD"
+      pinColor = "#c5f5f0"
       key={marker.key}
     />
     ))}
@@ -175,14 +176,13 @@ export default function App({navigation}) {
 App.navigationOptions = () => {
   return {
     title: 'Choose a Restaurant',
-    headerTitleStyle: {alignSelf: 'center'}
-    
+    headerTitleStyle: {alignSelf: 'center'},
   };
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f4fcfc',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },

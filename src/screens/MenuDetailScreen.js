@@ -1,9 +1,27 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import mapsapi from '../api/mapsapi';
+import { StyleSheet, Text, View, SafeAreaView} from 'react-native';
 
-const MenuDetailScreen = () => {
+const MenuDetailScreen = ({navigation}) => {
+  const [results, setResults] = useState([]);
+  const foodName = navigation.getParam('itemName'); 
+   const searchApi = async () => {
+    const response = await mapsapi.get('/ingredients.php', {
+      params: {
+        key: '76e92658-ed95-11ea-91c0-525400552a35',
+        s: "McDONALD'S, Hamburger"
+      }
+    })
+    setResults(response.data); 
+    //console.log(response.data); 
+  } 
+
+  useEffect(() => {
+    searchApi(); 
+  }, [])
+  
     return <View style={styles.container}>
-        <Text>MenuDetailScreen</Text>
+        <Text>{foodName}</Text>
     </View>
 }
 

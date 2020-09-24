@@ -83,9 +83,6 @@ const AnalysisScreen = () => {
       />
       <Spacer/>
       <Text style={{textAlign: "center"}}> Calcium </Text>
-      <VictoryChart height={150} >
-      <VictoryAxis
-      dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorCalcium } }}
         data={[
@@ -93,6 +90,10 @@ const AnalysisScreen = () => {
         ]}
       />
       <VictoryBoxPlot 
+      q1Labels
+      minLabels
+      q3Labels
+      maxLabels
       horizontal
       style={{
         min: { stroke: "#46A8C0" },
@@ -102,9 +103,8 @@ const AnalysisScreen = () => {
         median: { stroke: "#46A8C0", strokeWidth: 2 },
       }}
       data={[
-        { x: 1, y: [0, 8.6, 9.9, 10.3, 15] },
+        { x: 1, y: [0, 8.1, 9.9, 10.3, 15] },
       ]}/>
-      </VictoryChart>
       </ScrollView>
     </View >
 }
