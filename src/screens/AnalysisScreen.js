@@ -35,10 +35,9 @@ const AnalysisScreen = () => {
   })
 
 
-
   const data = {
     actual: [
-      {x: 'Cal', y:Calcium },
+      {x: 'Cal', y: Calcium},
       {x: 'Gluc', y:Glucose },
       {x: 'HDL', y:HDL },
       {x: 'LDL', y:LDL },
@@ -49,7 +48,7 @@ const AnalysisScreen = () => {
     ],
   }; 
 
-  console.log(data);
+  //console.log(data);
 
   const normalCalcium = [8.6, 10.3];
   const normalGlucose = [70, 99];
@@ -67,12 +66,19 @@ const AnalysisScreen = () => {
   var colorMag = "#FFFFFF";
   var colorSod = "#FFFFFF";
   if(data.actual[0].y < normalCalcium[0] || data.actual[0].y > normalCalcium[1])colorCalcium = "#c43a31";
+  if(data.actual[0].y >= normalCalcium[0] && data.actual[0].y <= normalCalcium[1]) colorCalcium="#40cf47"; 
   if(data.actual[1].y < normalGlucose[0] || data.actual[1].y > normalGlucose[1])colorGlucose = "#c43a31";
+  if(data.actual[1].y >= normalGlucose[0] && data.actual[1].y <= normalGlucose[1]) colorGlucose="#40cf47"; 
   if(data.actual[2].y < normalHDL[0] || data.actual[2].y > normalHDL[1])colorHDL = "#c43a31";
+  if(data.actual[2].y >= normalHDL[0] && data.actual[2].y <= normalHDL[1]) colorHDL="#40cf47"; 
   if(data.actual[3].y < normalLDL[0] || data.actual[3].y > normalLDL[1])colorLDL = "#c43a31";
+  if(data.actual[3].y >= normalLDL[0] && data.actual[3].y <= normalLDL[1]) colorLDL="#40cf47"; 
   if(data.actual[4].y < normalIron[0] || data.actual[4].y > normalIron[1])colorIron = "#c43a31";
+  if(data.actual[4].y >= normalIron[0] && data.actual[4].y <= normalIron[1]) colorIron="#40cf47"; 
   if(data.actual[5].y < normalMag[0] || data.actual[5].y > normalMag[1])colorMag = "#c43a31";
+  if(data.actual[5].y >= normalMag[0] && data.actual[5].y <= normalMag[1]) colorMag="#40cf47"; 
   if(data.actual[6].y < normalSod[0] || data.actual[6].y > normalSod[1])colorSod = "#c43a31";
+  if(data.actual[6].y >= normalSod[0] && data.actual[6].y <= normalSod[1]) colorSod="#40cf47"; 
 
     return <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -82,18 +88,22 @@ const AnalysisScreen = () => {
       style={styles.image}
       />
       <Spacer/>
-      <Text style={{textAlign: "center"}}> Calcium </Text>
-      <VictoryChart height={150}>
+      <Spacer/>
+
+      <Text style={{alignSelf: 'center'}}>🟢 = Healthy Range        🔴 = Unhealthy Range</Text>
+      <Spacer/>
+
+      <Text 
+      style={{textAlign: "center", fontWeight: 'bold', top: 20, fontSize: 20, color: '#46A8C0'}}> 
+      Calcium Level: {Calcium} mg/dL </Text>
+      <VictoryChart height={140}>
       <VictoryAxis style={{ 
-    axis: {stroke: "transparent"}, 
-    ticks: {stroke: "transparent"},
-    tickLabels: { fill:"transparent"} 
-}}
+    tickLabels: { fill:"transparent"} }}
       dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorCalcium } }}
         data={[
-          { x: 2, y: data.actual[0].y, symbol: "diamond", size: 7 }
+          { x: 2, y: Calcium, symbol: "circle", size: 7 }
         ]}
       />
       <VictoryBoxPlot 
@@ -105,14 +115,15 @@ const AnalysisScreen = () => {
       style={{
         min: { stroke: "#46A8C0" },
         max: { stroke: "#46A8C0" },
-        q1: { fill: "#46A8C0" },
-        q3: { fill: "#46A8C0" },
-        median: { stroke: "#46A8C0", strokeWidth: 2 },
+        q1: { fill: "#40cf47" },
+        q3: { fill: "#40cf47" },
+        median: { stroke: "#40cf47" },
       }}
       data={[
-        { x: 1, y: [0, 8.1, 9.9, 10.3, 15] },
+        { x: 1, y: [6, 8.1, 9.9, 10.3, 13] },
       ]}/>
             </VictoryChart>
+      <Text style={{alignSelf: 'flex-end', right: 25, bottom: 35, fontWeight: 'bold'}} >mg/dL</Text>
 
       </ScrollView>
     </View >
@@ -125,9 +136,9 @@ const styles = StyleSheet.create({
   },
   image: {
     alignSelf: 'center', 
-    top: 30,
-    width: 200, 
-    height: 50
+    top: 60,
+    width: 250, 
+    height: 65
   },
   text: {
     top: 40,

@@ -201,6 +201,6 @@ const styles = StyleSheet.create({
     width:Dimensions.get('window').width
   },
   flatList: {
-    right: 8,
+    right: 0,
   }
 });
