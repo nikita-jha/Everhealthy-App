@@ -1,19 +1,24 @@
 import React, {useState, useEffect} from 'react';
-import mapsapi from '../api/mapsapi';
+import nutritionapi from '../api/menudetail.js';
+import nutritionapix from '../api/menudetail.js';
 import { StyleSheet, Text, View, SafeAreaView} from 'react-native';
 
 const MenuDetailScreen = ({navigation}) => {
   const [results, setResults] = useState([]);
-  const foodName = navigation.getParam('itemName'); 
+  const foodName = navigation.getParam('itemName');
+  const restaurantName = navigation.getParam('rName'); 
+  const query = restaurantName + " " + foodName;
+  console.log(query);
    const searchApi = async () => {
-    const response = await mapsapi.get('/ingredients.php', {
-      params: {
-        key: '76e92658-ed95-11ea-91c0-525400552a35',
-        s: "McDONALD'S, Hamburger"
+    const response = await nutritionapix.get('https://nutritionix-api.p.rapidapi.com/v1_1/search/', {
+      params: 
+      {
+        phrase: query,
+        fields: 'item_name,item_id,brand_name,nf_calories,nf_total_fat'
       }
-    })
-    setResults(response.data); 
-    //console.log(response.data); 
+
+    }); 
+    console.log(response);
   } 
 
   useEffect(() => {
