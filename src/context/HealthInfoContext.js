@@ -18,9 +18,9 @@ const fetchHealthInfo = dispatch => async () => {
     dispatch({type: 'fetchHealthInfo', payload: response.data}); 
 }; 
 
-const createHealthInfo = dispatch => async (year, height, weight, LDL, HDL, Sodium, Glucose, Iron, Magnesium, Calcium) => {
+const createHealthInfo = dispatch => async (year, height, weight, LDL, HDL, Sodium, Glucose, Hemoglobin, Potassium, Calcium) => {
     try{
-        await connectionApi.post('/HealthInfo', {year, height, weight, LDL, HDL, Sodium, Glucose, Iron, Magnesium, Calcium}); 
+        await connectionApi.post('/HealthInfo', {year, height, weight, LDL, HDL, Sodium, Glucose, Hemoglobin, Potassium, Calcium}); 
         dispatch({type: 'postHealthInfo'})
     }catch(err) {
         console.log("Hi there!")

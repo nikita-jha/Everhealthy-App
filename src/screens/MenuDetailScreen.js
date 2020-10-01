@@ -21,7 +21,18 @@ const MenuDetailScreen = ({navigation}) => {
   }, [])
   
     return <View style={styles.container}>
-        <Text>{foodName}</Text>
+        <Text style={styles.title}>{foodName}</Text>
+        <View style={{top: 15, left: 75}}>
+        <Text style={{fontSize: 20, paddingTop: 35}}>Calcium</Text>
+        <Text style={{fontSize: 20, paddingTop: 35}}>Glucose</Text>
+        <Text style={{fontSize: 20, paddingTop: 35}}>HDL</Text>
+        <Text style={{fontSize: 20, paddingTop: 35}} >LDL</Text>
+        <Text style={{fontSize: 20, paddingTop: 35}}>Hemoglobin</Text>
+        <Text style={{fontSize: 20, paddingTop: 35}}>Potassium</Text>
+        <Text style={{fontSize: 20, paddingTop: 35}}>Sodium</Text>
+        </View>
+
+
     </View>
 }
 
@@ -29,9 +40,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  title: {
+    alignSelf: 'center',
+    paddingTop: 25,
+    fontSize: 20,
+    fontWeight: 'bold'
+  }
 });
 
 export default MenuDetailScreen;

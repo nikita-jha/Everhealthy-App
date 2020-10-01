@@ -79,7 +79,7 @@ const AccountScreen = ({navigation}) => {
           </View>
 
           <Text h4 style={styles.content}>Account Information</Text>
-        <View style={{marginTop: 30}}/>
+        <View style={{marginTop: 60}}/>
         <View style={styles.card}>
           <Text style={{fontSize: 20, paddingLeft: 30}}>First Name</Text>
           <TextInput style={styles.input}/>
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
   button: {
     alignSelf: 'center',
     width: 100,
-    backgroundColor: '#B0E3E6',
-    borderColor: '#0E8088', 
+    backgroundColor: '#D0CEE2',
+    borderColor: '#56517E', 
     borderWidth: 3,
     padding: 10,
     marginTop: 20
@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
     top: 40
     },
   content: {
-    marginTop: '5%',
-    paddingLeft: 20
+    top: 35,
+    alignSelf: 'center'
         },
   card:{
     flexDirection:'row',

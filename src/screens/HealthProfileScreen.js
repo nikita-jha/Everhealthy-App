@@ -13,8 +13,8 @@ const HealthProfileScreen = ({navigation}) => {
   const {state, fetchHealthInfo} = useContext(HealthInfoContext); 
 
   const functionTwo = async () => {
-    await createHealthInfo( year, height, weight, LDL, HDL, Sodium, Glucose, Iron, 
-      Magnesium, Calcium); 
+    await createHealthInfo( year, height, weight, LDL, HDL, Sodium, Glucose, Hemoglobin, 
+      Potassium, Calcium); 
     navigation.navigate('RestaurantFind');  
   }
   const setText = async () => {
@@ -44,10 +44,10 @@ const HealthProfileScreen = ({navigation}) => {
   const [Glucose, setGlucose] = useState(0.0); 
   const Sodium_Text = "Sodium"
   const [Sodium, setSodium] = useState(0.0); 
-  const Iron_Text = "Iron      "
-  const [Iron, setIron] = useState(0.0); 
-  const Magnesium_Text = "Magnesium "
-  const [Magnesium, setMagnesium] = useState(0.0); 
+  const Hemoglobin_Text = "Hemoglobin      "
+  const [Hemoglobin, setHemoglobin] = useState(0.0); 
+  const Potassium_Text = "Potassium "
+  const [Potassium, setPotassium] = useState(0.0); 
   const Calcium_Text = "Calcium     "
   const [Calcium, setCalcium] = useState(0.0); 
 
@@ -117,7 +117,7 @@ const HealthProfileScreen = ({navigation}) => {
 
         />
         </View>
-        <Text style={{left: 75}}>g/dc</Text>
+        <Text style={{left: 75}}>mg/dL</Text>
 
       </View>
 
@@ -134,7 +134,7 @@ const HealthProfileScreen = ({navigation}) => {
         keyboardType="decimal-pad"
         />
         </View>
-        <Text style={{left: 78}}>g/dc</Text>
+        <Text style={{left: 78}}>mg/dL</Text>
 
       </View>
 
@@ -151,7 +151,7 @@ const HealthProfileScreen = ({navigation}) => {
         keyboardType="decimal-pad"
         />
         </View>
-        <Text style={{left: 87}}>g/dc</Text>
+        <Text style={{left: 87}}>mg/dL</Text>
 
       </View>
 
@@ -168,7 +168,7 @@ const HealthProfileScreen = ({navigation}) => {
         keyboardType="decimal-pad"
         />
         </View>
-        <Text style={{left: 65}}>g/dc</Text>
+        <Text style={{left: 65}}>mg/dL</Text>
 
       </View>
 
@@ -178,14 +178,14 @@ const HealthProfileScreen = ({navigation}) => {
      value={isSelected5}
      onValueChange={setSelection5}
      />
-    <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Iron_Text}</Text>
-        <View style={{width: '30%', left: 85}}>
+    <Text style={{fontSize: 15, paddingLeft: 20}}>{Hemoglobin_Text}</Text>
+        <View style={{width: '30%', left: 40}}>
         <Input
-        onChangeText={(newIron) => setIron(newIron)}
+        onChangeText={(newHemoglobin) => setHemoglobin(newHemoglobin)}
         keyboardType="decimal-pad"
         />
         </View>
-              <Text style={{left: 88}}>g/dc</Text>
+              <Text style={{left: 45}}>g/dL</Text>
 
       </View>
 
@@ -195,14 +195,14 @@ const HealthProfileScreen = ({navigation}) => {
      value={isSelected6}
      onValueChange={setSelection6}
      />
-    <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Magnesium_Text}</Text>
-        <View style={{width: '30%', left: 50}}>
+    <Text style={{fontSize: 15, paddingLeft: 20, marginRight: 10}}>{Potassium_Text}</Text>
+        <View style={{width: '30%', left: 58}}>
         <Input
-        onChangeText={(newMagnesium) => setMagnesium(newMagnesium)}
+        onChangeText={(newPotassium) => setPotassium(newPotassium)}
         keyboardType="decimal-pad"
         />
         </View>
-        <Text style={{left: 52}}>g/dc</Text>
+        <Text style={{left: 65}}>mmol/L</Text>
       </View>
 
       <View style={styles.card}>
@@ -218,7 +218,7 @@ const HealthProfileScreen = ({navigation}) => {
         keyboardType="decimal-pad"
         />
         </View>
-    <Text style={{left: 64}}>g/dc</Text>
+    <Text style={{left: 64}}>mg/dL</Text>
       </View>
 
     
