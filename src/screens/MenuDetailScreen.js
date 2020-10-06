@@ -12,13 +12,7 @@ const MenuDetailScreen = ({navigation}) => {
   const query = restaurantName + " " + foodName;
   const check = '✅';
   const redx = '🔺';
-  const user_calcium = 9.5
-  const user_glucose = 73
-  const user_HDL = 84
-  const user_LDL = 183
-  const user_Hemoglobin = 14.7
-  const user_Potassium = 2.7
-  const user_Sodium = 138
+
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -52,25 +46,30 @@ const MenuDetailScreen = ({navigation}) => {
         <View style={{flex: 1}}>
         <TouchableOpacity 
         style={{left: 120}} 
-        onPress={toggleModal}><Text style={{color: '#461efa'}}>Why?</Text>
+        onPress={toggleModal}><Text style={{color: '#509de6', fontWeight: 'bold'}}>Why?</Text>
          </TouchableOpacity>
          
         <Modal 
-        backdropOpacity={0.7}
         isVisible={isModalVisible} 
+        onBackdropPress={() => setModalVisible(false)}
+        animationOut={"slideOutRight"}
+        animationIn={"slideInLeft"}
         style={{alignItems: 'center'} } 
-        backdropColor={"#0c706d"}
+        animationType={'fade'}
+        backdropOpacity={0.5}
         >
             <View style={{
-          flex: 1,
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center'}}>
-        <View style={{width: 100, height: 100}}>
-          <Text style={{color: "#fff"}}>How are you!</Text>
-          <Button title="Hide modal" onPress={toggleModal} />
-    </View>
-  </View>
+          alignItems: 'center',
+          backgroundColor: "#fff",
+          width: 300, height: 100
+          }}>
+          <Text style={{color: "#000"}}>How are you!</Text>
+          <TouchableOpacity style={{top: 20}}
+            onPress={toggleModal}><Text style={{color: '#03a1fc'}}>Close</Text>
+         </TouchableOpacity>
+      </View>
 
         </Modal>
         </View>
@@ -81,7 +80,7 @@ const MenuDetailScreen = ({navigation}) => {
       <View style={styles.card}>
         <Text style={{fontSize: 15, paddingLeft: 80, marginRight: 10, fontWeight: 'bold'}}>LDL </Text>
         <Text style={{fontSize: 25, left: 78}}>{redx}</Text>
-        <Text style={{color: '#461efa', left: 120}}>Why?</Text> 
+        <Text style={{color: '#509de6', fontWeight: 'bold', left: 120}}>Why?</Text> 
 
 
       </View>
@@ -98,13 +97,14 @@ const MenuDetailScreen = ({navigation}) => {
       <View style={styles.card}>
         <Text style={{fontSize: 15, paddingLeft: 80, marginRight: 10, fontWeight: 'bold'}}>Sodium </Text>
         <Text style={{fontSize: 25, left: 50}}>{redx}</Text>
-        <Text style={{color: '#461efa', left: 95}}>Why?</Text> 
+        <Text style={{color: '#509de6', fontWeight: 'bold', left: 95}}>Why?</Text> 
 
 
       </View>
       
         <View style={{top: 15, left: 75}}>
         </View>
+        <Spacer/>
     </ScrollView>
 }
 
