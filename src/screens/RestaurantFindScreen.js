@@ -133,8 +133,8 @@ export default function App({navigation}) {
       region={{
         latitude:numLatitude,
         longitude: numLongitude,
-        latitudeDelta: 0.2,
-        longitudeDelta: 0.2
+        latitudeDelta: 0.1,
+        longitudeDelta: 0.1
       }}
       >
       {markers.map(marker => (
