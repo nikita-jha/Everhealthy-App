@@ -41,7 +41,7 @@ const MenuScreen = ({navigation}) => {
           sections={data}
           renderItem={({item}) => 
           <TouchableOpacity 
-          onPress={() => navigation.navigate('MenuDetail', {itemName: item.foodName})}
+          onPress={() => navigation.navigate('Recommendation', {itemName: item.foodName})}
           style={styles.touchableOpacity}> 
           <Text style={styles.item}>{item.foodName}</Text>
           <Text style={{color: 'grey',fontSize:20, alignSelf: 'flex-end', right: 13, bottom: 18}}>&gt;</Text>

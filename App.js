@@ -20,7 +20,7 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
     const restFlow = createStackNavigator({
         RestaurantFind: RestaurantFindScreen,
         Menu: MenuScreen,
-        MenuDetail: MenuDetailScreen
+        Recommendation: MenuDetailScreen
     });
 
     restFlow.navigationOptions={

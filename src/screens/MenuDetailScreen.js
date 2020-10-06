@@ -21,7 +21,7 @@ const MenuDetailScreen = ({navigation}) => {
     return <ScrollView style={styles.container}>
         <Text style={{alignSelf: 'center', top: 35, fontSize: 25, fontWeight: 'bold'}}>Spicy Chicken Sandwich</Text>
         <Image source={require('../../assets/Sandwich.png')} style={styles.image} /> 
-        <Text style={{color: '#509de6', alignSelf: 'center', fontWeight: 'bold', fontSize: 25, bottom: 25}}>Personal Reccomendation</Text>
+        <Text style={{color: '#509de6', alignSelf: 'center', fontWeight: 'bold', fontSize: 25, bottom: 25}}>Personal Reccomendation:</Text>
         <Text style={{color: '#ff1100', alignSelf: 'center', fontWeight: 'bold', fontSize: 20, bottom: 20}}>Avoid This Meal!</Text>
         <View style={{backgroundColor: '#c0dffc', height: 65, width: 325, alignSelf: 'center'}}>
         <Text style={{color: '#000000', alignSelf: 'center', fontSize:15}}>Your cholesterol and 
