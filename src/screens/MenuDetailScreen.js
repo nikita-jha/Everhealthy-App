@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, ScrollView, Image,  TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image,  TouchableOpacity, Button} from 'react-native';
 import Spacer from '../components/Spacer'; 
+import Modal from 'react-native-modal';
 
 
 const MenuDetailScreen = ({navigation}) => {
   const [results, setResults] = useState([]);
+  const [isModalVisible, setModalVisible] = useState(false);
   const foodName = navigation.getParam('itemName');
   const restaurantName = navigation.getParam('rName'); 
   const query = restaurantName + " " + foodName;
@@ -17,6 +19,10 @@ const MenuDetailScreen = ({navigation}) => {
   const user_Hemoglobin = 14.7
   const user_Potassium = 2.7
   const user_Sodium = 138
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
     return <ScrollView style={styles.container}>
         <Text style={{alignSelf: 'center', top: 35, fontSize: 25, fontWeight: 'bold'}}>Spicy Chicken Sandwich</Text>
@@ -42,7 +48,33 @@ const MenuDetailScreen = ({navigation}) => {
       <View style={styles.card}>
         <Text style={{fontSize: 15, paddingLeft: 80, marginRight: 10, fontWeight: 'bold'}}>HDL </Text>
         <Text style={{fontSize: 25, left: 75}}>{redx}</Text>
-        <Text style={{color: '#461efa', left: 120}}>Why?</Text> 
+
+        <View style={{flex: 1}}>
+        <TouchableOpacity 
+        style={{left: 120}} 
+        onPress={toggleModal}><Text style={{color: '#461efa'}}>Why?</Text>
+         </TouchableOpacity>
+         
+        <Modal 
+        backdropOpacity={0.7}
+        isVisible={isModalVisible} 
+        style={{alignItems: 'center'} } 
+        backdropColor={"#0c706d"}
+        >
+            <View style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'}}>
+        <View style={{width: 100, height: 100}}>
+          <Text style={{color: "#fff"}}>How are you!</Text>
+          <Button title="Hide modal" onPress={toggleModal} />
+    </View>
+  </View>
+
+        </Modal>
+        </View>
+        
 
 
       </View>
