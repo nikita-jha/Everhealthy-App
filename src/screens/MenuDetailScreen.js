@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, ScrollView, Image,  TouchableOpacity} from 'react-native';
 import Spacer from '../components/Spacer'; 
 
-
+import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 const MenuDetailScreen = ({navigation}) => {
   const [results, setResults] = useState([]);
   const foodName = navigation.getParam('itemName');
@@ -19,6 +19,7 @@ const MenuDetailScreen = ({navigation}) => {
   const user_Sodium = 138
 
     return <ScrollView style={styles.container}>
+
         <Text style={{alignSelf: 'center', top: 35, fontSize: 25, fontWeight: 'bold'}}>Spicy Chicken Sandwich</Text>
         <Image source={require('../../assets/Sandwich.png')} style={styles.image} /> 
         <Text style={{color: '#509de6', alignSelf: 'center', fontWeight: 'bold', fontSize: 25, bottom: 25}}>Personal Reccomendation:</Text>
@@ -42,16 +43,32 @@ const MenuDetailScreen = ({navigation}) => {
       <View style={styles.card}>
         <Text style={{fontSize: 15, paddingLeft: 80, marginRight: 10, fontWeight: 'bold'}}>HDL </Text>
         <Text style={{fontSize: 25, left: 75}}>{redx}</Text>
-        <Text style={{color: '#461efa', left: 120}}>Why?</Text> 
+        <Collapse>
+          <CollapseHeader>
+            <View>
+              <Text style={{color: '#461efa'}}>Why?</Text> 
+            </View>
+          </CollapseHeader>
+          <CollapseBody>
+            <Text>Example</Text>
+          </CollapseBody>
+        </Collapse>
 
 
       </View>
       <View style={styles.card}>
         <Text style={{fontSize: 15, paddingLeft: 80, marginRight: 10, fontWeight: 'bold'}}>LDL </Text>
         <Text style={{fontSize: 25, left: 78}}>{redx}</Text>
-        <Text style={{color: '#461efa', left: 120}}>Why?</Text> 
-
-
+        <Collapse>
+          <CollapseHeader>
+            <View>
+              <Text style={{color: '#461efa'}}>Why?</Text> 
+            </View>
+          </CollapseHeader>
+          <CollapseBody>
+            <Text>Example</Text>
+          </CollapseBody>
+        </Collapse>
       </View>
       <View style={styles.card}>
         <Text style={{fontSize: 15, paddingLeft: 80, marginRight: 10, fontWeight: 'bold'}}>Hemoglobin </Text>
@@ -64,10 +81,20 @@ const MenuDetailScreen = ({navigation}) => {
 
       </View>
       <View style={styles.card}>
+        <View style = {styles.wrapper}>
         <Text style={{fontSize: 15, paddingLeft: 80, marginRight: 10, fontWeight: 'bold'}}>Sodium </Text>
         <Text style={{fontSize: 25, left: 50}}>{redx}</Text>
-        <Text style={{color: '#461efa', left: 95}}>Why?</Text> 
-
+        </View>
+        <Collapse>
+          <CollapseHeader>
+            <View>
+              <Text style={{color: '#461efa'}}>Why?</Text> 
+            </View>
+          </CollapseHeader>
+          <CollapseBody>
+            <Text>Example</Text>
+          </CollapseBody>
+        </Collapse>
 
       </View>
       
@@ -85,7 +112,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   card: {
-    flexDirection:'row',
+    flexDirection:'column',
     alignContent:'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -93,6 +120,9 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     top: 15
 
+  },
+  wrapper: {
+    flexDirection: 'row'
   },
   image: {
     width: 300, 
