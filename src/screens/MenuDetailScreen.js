@@ -56,21 +56,25 @@ const MenuDetailScreen = ({navigation}) => {
          </TouchableOpacity>
          
         <Modal 
-        backdropOpacity={0.7}
         isVisible={isModalVisible} 
         style={{alignItems: 'center'} } 
-        backdropColor={"#0c706d"}
+        hasBackdrop={false}
+              animationType={'fade'}
+
+ 
         >
             <View style={{
-          flex: 1,
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center'}}>
-        <View style={{width: 100, height: 100}}>
-          <Text style={{color: "#fff"}}>How are you!</Text>
-          <Button title="Hide modal" onPress={toggleModal} />
-    </View>
-  </View>
+          alignItems: 'center',
+          backgroundColor: "#fff",
+          width: 300, height: 100
+          }}>
+          <Text style={{color: "#000"}}>How are you!</Text>
+          <TouchableOpacity style={{top: 20}}
+            onPress={toggleModal}><Text style={{color: '#03a1fc'}}>Close</Text>
+         </TouchableOpacity>
+      </View>
 
         </Modal>
         </View>
