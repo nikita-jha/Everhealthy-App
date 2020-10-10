@@ -258,7 +258,7 @@ const MenuDetailScreen = ({navigation}) => {
             <Text style={{alignSelf: 'flex-end', right: 5, bottom: 35, fontWeight: 'bold'}} >mg/dL</Text>
             <Text style={{paddingRight:15, paddingLeft: 15}}>This item has 1670 mg or almost 2g of Sodium, 
             which is more than 70% of your allotted daily value! Your sodium level is already out of the 
-            unhealthy range. Avoid this meal! </Text>
+            healthy range. Avoid this meal! </Text>
               <TouchableOpacity style={{top: 10}}
             onPress={toggleModal3}><Text style={{color: '#03a1fc'}}>Close</Text>
          </TouchableOpacity>
