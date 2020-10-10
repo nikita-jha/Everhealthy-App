@@ -12,13 +12,13 @@ import { color } from 'react-native-reanimated';
 const AnalysisScreen = () => {
   const {state, fetchHealthInfo} = useContext(HealthInfoContext);
 
-  const [Sodium, setSodium] = useState(0); 
-  const [Glucose, setGlucose] = useState(0); 
-  const [HDL, setHDL] = useState(0); 
-  const [LDL, setLDL] = useState(0); 
-  const [Hemoglobin, setHemoglobin] = useState(0); 
-  const [Potassium, setPotassium] = useState(0); 
-  const [Calcium, setCalcium] = useState(0); 
+  const [Sodium, setSodium] = useState(150); 
+  const [Glucose, setGlucose] = useState(73); 
+  const [HDL, setHDL] = useState(20); 
+  const [LDL, setLDL] = useState(183); 
+  const [Hemoglobin, setHemoglobin] = useState(14.7); 
+  const [Potassium, setPotassium] = useState(4); 
+  const [Calcium, setCalcium] = useState(9.5); 
 
   console.log(JSON.stringify(state).length); 
   //console.log("Right before state[0].Sodium")
@@ -126,17 +126,16 @@ const AnalysisScreen = () => {
 
       <Text style={{alignSelf: 'center', top: 25}}>🟢 = Healthy Range        🔴 = Unhealthy Range</Text>
       <Spacer/>
-
       <Text 
       style={{textAlign: "center", fontWeight: 'bold', top: 20, fontSize: 20, color: '#46A8C0'}}> 
-      Calcium Level: {Calcium} mg/dL </Text>
+      Potassium Level: {Potassium} mmol/L </Text>
       <VictoryChart height={140}>
       <VictoryAxis style={{ 
     tickLabels: { fill:"transparent"} }}
       dependentAxis/>
       <VictoryScatter 
-        style={{ data: { fill: colorCalcium } }}
-        data={calciumData}
+        style={{ data: { fill: colorPotassium } }}
+        data={potassiumData}
         animate={{easing:'exp', duration: 5000}}
       />
       <VictoryBoxPlot 
@@ -145,10 +144,6 @@ const AnalysisScreen = () => {
       q3Labels
       maxLabels
       horizontal
-      animate={{
-        duration: 1000,
-        easing: "bounce"
-      }}
       style={{
         min: { stroke: "#46A8C0" },
         max: { stroke: "#46A8C0" },
@@ -156,10 +151,11 @@ const AnalysisScreen = () => {
         q3: { fill: "#40cf47" },
         median: { stroke: "#40cf47" },
       }}
-      data={[{ x: 1, y: [6, 8.1, 9.9, 10.3, 13] }]}/>
-      </VictoryChart>
-      <Text style={{alignSelf: 'flex-end', right: 25, bottom: 35, fontWeight: 'bold'}} >mg/dL</Text>
-
+      data={[
+        { x: 1, y: [1, 3.6, 4.4, 5.2, 9.5] },
+      ]}/>
+            </VictoryChart>
+      <Text style={{alignSelf: 'flex-end', right: 25, bottom: 35, fontWeight: 'bold'}} >mmol/L</Text>
 
       <Text 
       style={{textAlign: "center", fontWeight: 'bold', top: 20, fontSize: 20, color: '#46A8C0'}}> 
@@ -287,14 +283,14 @@ const AnalysisScreen = () => {
 
       <Text 
       style={{textAlign: "center", fontWeight: 'bold', top: 20, fontSize: 20, color: '#46A8C0'}}> 
-      Potassium Level: {Potassium} mmol/L </Text>
+      Calcium Level: {Calcium} mg/dL </Text>
       <VictoryChart height={140}>
       <VictoryAxis style={{ 
     tickLabels: { fill:"transparent"} }}
       dependentAxis/>
       <VictoryScatter 
-        style={{ data: { fill: colorPotassium } }}
-        data={potassiumData}
+        style={{ data: { fill: colorCalcium } }}
+        data={calciumData}
         animate={{easing:'exp', duration: 5000}}
       />
       <VictoryBoxPlot 
@@ -303,6 +299,10 @@ const AnalysisScreen = () => {
       q3Labels
       maxLabels
       horizontal
+      animate={{
+        duration: 1000,
+        easing: "bounce"
+      }}
       style={{
         min: { stroke: "#46A8C0" },
         max: { stroke: "#46A8C0" },
@@ -310,12 +310,12 @@ const AnalysisScreen = () => {
         q3: { fill: "#40cf47" },
         median: { stroke: "#40cf47" },
       }}
-      data={[
-        { x: 1, y: [1, 3.6, 4.4, 5.2, 9.5] },
-      ]}/>
-            </VictoryChart>
-      <Text style={{alignSelf: 'flex-end', right: 25, bottom: 35, fontWeight: 'bold'}} >mmol/L</Text>
+      data={[{ x: 1, y: [6, 8.1, 9.9, 10.3, 13] }]}/>
+      </VictoryChart>
+      <Text style={{alignSelf: 'flex-end', right: 25, bottom: 35, fontWeight: 'bold'}} >mg/dL</Text>
 
+
+      
       <Text 
       style={{textAlign: "center", fontWeight: 'bold', top: 20, fontSize: 20, color: '#46A8C0'}}> 
       Sodium Level: {Sodium} mg/dL </Text>
