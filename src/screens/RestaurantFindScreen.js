@@ -91,7 +91,28 @@ export default function App({navigation}) {
         s: search
       }
     });
-    setResults(response.data.response.result.restaurants);
+    var tempresults = response.data.response.result.restaurants;
+    console.log(tempresults);
+    var counter = 0;
+    var counted = [];
+    while(counter < tempresults.length){
+      console.log(counter);
+      var restname = tempresults[counter].restaurant_name;
+      var counter2 = 0;
+      var boolean = 0;
+      for(counter2 = 0; counter2 < counted.length; counter2++){
+        if(counted[counter2] == restname)boolean = 1;
+      }
+      if(boolean == 1){
+        tempresults.splice(counter, 1);
+      }
+      if(boolean == 0){
+        counted.push(restname);
+        counter++;
+      }
+    }
+    setResults(tempresults);
+    console.log(tempresults);
     //console.log(response.data.response.result.restaurants); 
 
     }
@@ -141,7 +162,7 @@ export default function App({navigation}) {
     <MapView.Marker 
       coordinate={marker.coordinates}
       title={marker.title}
-      pinColor = "#c5f5f0"
+      pinColor = "#59a2b0"
       key={marker.key}
     />
     ))}

@@ -80,6 +80,41 @@ const AnalysisScreen = () => {
   if(data.actual[6].y < normalSod[0] || data.actual[6].y > normalSod[1])colorSod = "#c43a31";
   if(data.actual[6].y >= normalSod[0] && data.actual[6].y <= normalSod[1]) colorSod="#40cf47"; 
 
+  const [calciumData, setCalciumData] = useState([{ x: 2, y: Calcium, symbol: "circle", size: 0 }]);
+  useEffect(() => {
+    setCalciumData([{ x: 2, y: Calcium, symbol: "circle", size: 7 }]);
+  }, []);
+
+  const [glucoseData, setGlucoseData] = useState([{ x: 2, y: Glucose, symbol: "circle", size: 0 }]);
+  useEffect(() => {
+    setGlucoseData([{ x: 2, y: Glucose, symbol: "circle", size: 7 }]);
+  }, []);
+
+  const [HDLData, setHDLData] = useState([{ x: 2, y: HDL, symbol: "circle", size: 0 }]);
+  useEffect(() => {
+    setHDLData([{ x: 2, y: HDL, symbol: "circle", size: 7 }]);
+  }, []);
+
+  const [LDLData, setLDLData] = useState([{ x: 2, y: LDL, symbol: "circle", size: 0 }]);
+  useEffect(() => {
+    setLDLData([{ x: 2, y: LDL, symbol: "circle", size: 7 }]);
+  }, []);
+
+  const [hemoglobinData, setHemoglobinData] = useState([{ x: 2, y: Hemoglobin, symbol: "circle", size: 0 }]);
+  useEffect(() => {
+    setHemoglobinData([{ x: 2, y: Hemoglobin, symbol: "circle", size: 7 }]);
+  }, []);
+
+  const [potassiumData, setPotassiumData] = useState([{ x: 2, y: Potassium, symbol: "circle", size: 0 }]);
+  useEffect(() => {
+    setPotassiumData([{ x: 2, y: Potassium, symbol: "circle", size: 7 }]);
+  }, []);
+
+  const [sodiumData, setSodiumData] = useState([{ x: 2, y: Sodium, symbol: "circle", size: 0 }]);
+  useEffect(() => {
+    setSodiumData([{ x: 2, y: Sodium, symbol: "circle", size: 7 }]);
+  }, []);
+
     return <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
       <NavigationEvents onWillFocus={fetchHealthInfo}/>
@@ -101,9 +136,8 @@ const AnalysisScreen = () => {
       dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorCalcium } }}
-        data={[
-          { x: 2, y: Calcium, symbol: "circle", size: 7 }
-        ]}
+        data={calciumData}
+        animate={{easing:'exp', duration: 5000}}
       />
       <VictoryBoxPlot 
       q1Labels
@@ -111,6 +145,10 @@ const AnalysisScreen = () => {
       q3Labels
       maxLabels
       horizontal
+      animate={{
+        duration: 1000,
+        easing: "bounce"
+      }}
       style={{
         min: { stroke: "#46A8C0" },
         max: { stroke: "#46A8C0" },
@@ -118,10 +156,8 @@ const AnalysisScreen = () => {
         q3: { fill: "#40cf47" },
         median: { stroke: "#40cf47" },
       }}
-      data={[
-        { x: 1, y: [6, 8.1, 9.9, 10.3, 13] },
-      ]}/>
-            </VictoryChart>
+      data={[{ x: 1, y: [6, 8.1, 9.9, 10.3, 13] }]}/>
+      </VictoryChart>
       <Text style={{alignSelf: 'flex-end', right: 25, bottom: 35, fontWeight: 'bold'}} >mg/dL</Text>
 
 
@@ -134,9 +170,8 @@ const AnalysisScreen = () => {
       dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorGlucose } }}
-        data={[
-          { x: 2, y: Glucose, symbol: "circle", size: 7 }
-        ]}
+        data={glucoseData}
+        animate={{easing:'exp', duration: 5000}}
       />
       <VictoryBoxPlot 
       q1Labels
@@ -166,9 +201,8 @@ const AnalysisScreen = () => {
       dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorHDL } }}
-        data={[
-          { x: 2, y: HDL, symbol: "circle", size: 7 }
-        ]}
+        data={HDLData}
+        animate={{easing:'exp', duration: 5000}}
       />
       <VictoryBoxPlot 
       q1Labels
@@ -198,9 +232,8 @@ const AnalysisScreen = () => {
       dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorLDL } }}
-        data={[
-          { x: 2, y: LDL, symbol: "circle", size: 7 }
-        ]}
+        data={LDLData}
+        animate={{easing:'exp', duration: 5000}}
       />
       <VictoryBoxPlot 
       q1Labels
@@ -230,9 +263,8 @@ const AnalysisScreen = () => {
       dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorHemoglobin } }}
-        data={[
-          { x: 2, y: Hemoglobin, symbol: "circle", size: 7 }
-        ]}
+        data={hemoglobinData}
+        animate={{easing:'exp', duration: 5000}}
       />
       <VictoryBoxPlot 
       q1Labels
@@ -262,9 +294,8 @@ const AnalysisScreen = () => {
       dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorPotassium } }}
-        data={[
-          { x: 2, y: Potassium, symbol: "circle", size: 7 }
-        ]}
+        data={potassiumData}
+        animate={{easing:'exp', duration: 5000}}
       />
       <VictoryBoxPlot 
       q1Labels
@@ -294,9 +325,8 @@ const AnalysisScreen = () => {
       dependentAxis/>
       <VictoryScatter 
         style={{ data: { fill: colorSod } }}
-        data={[
-          { x: 2, y: Sodium, symbol: "circle", size: 7 }
-        ]}
+        data={sodiumData}
+        animate={{easing:'exp', duration: 5000}}
       />
       <VictoryBoxPlot 
       q1Labels
