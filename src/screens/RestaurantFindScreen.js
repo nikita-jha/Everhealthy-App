@@ -92,11 +92,11 @@ export default function App({navigation}) {
       }
     });
     var tempresults = response.data.response.result.restaurants;
-    console.log(tempresults);
+    //console.log(tempresults);
     var counter = 0;
     var counted = [];
     while(counter < tempresults.length){
-      console.log(counter);
+      //console.log(counter);
       var restname = tempresults[counter].restaurant_name;
       var counter2 = 0;
       var boolean = 0;
@@ -112,7 +112,7 @@ export default function App({navigation}) {
       }
     }
     setResults(tempresults);
-    console.log(tempresults);
+   // console.log(tempresults);
     //console.log(response.data.response.result.restaurants); 
 
     }
